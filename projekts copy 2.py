@@ -1,6 +1,7 @@
 import itertools
 import datetime
 from datetime import time
+import json
 
 class Klients:
     Klienta_vaards=""
@@ -92,11 +93,37 @@ class Material:
         
     def Material_info(self):
         int(input("Kadu materialu jūs izvelejas: (Linolejs,Frizes,Lamināts)"))
-    def Material_info_print():
-        
-a=int(input("Ievadiet garumu: "))
-b=int(input("Ievadit platumu: "))
-s1=Laukums(b,a)
+    
+
+try:
+    with open("laukums_data.json","r",encoding='utf-8') as file:
+        lauukums=json.load(file)
+except FileNotFoundError:
+    lauukums=[]
+
+while True:
+    platums=int((input("Ievadiet platums: ")))
+    garums=int((input("Ievadiet garums: ")))
+    laukuums=(f"{int(platums) * int(garums)}")
+
+    lauukums.append({
+        "platums":platums,
+        "garums":garums,
+        "laukuums":laukuums
+    })
+
+    another=input("Vai vēlaties pievienot vēl vienu laukumu? (jā/nē)")
+    if another !="jā":
+        break
+
+
+with open("laukums_data.json","w",encoding='utf-8') as file:
+    json.dump(lauukums,file,indent=4)
+
+    print("Dati ir veiksmīgi saglabāti JSON failā!")      
+#a=int(input("Ievadiet garumu: "))
+#b=int(input("Ievadit platumu: "))
+s1=Laukums(platums,garums)
 s1.aprekinasana()
 s1.Laukuma_info_print()
     
