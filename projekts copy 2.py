@@ -93,14 +93,18 @@ class Material:
         
     def Material_info(self):
         int(input("Kadu materialu jūs izvelejas: (Linolejs,Frizes,Lamināts)"))
-    
+    if Material_info == "Linolejs":
+        print("Jūs izvelejas linoleju")
+    elif Material_info == "Flizes":
+        print("Jūs izvelejas Flizes")
+    elif Material_info == "Lamināts":
+        print("Jūs izvelejas Lamināts")
 
 try:
     with open("laukums_data.json","r",encoding='utf-8') as file:
         lauukums=json.load(file)
 except FileNotFoundError:
     lauukums=[]
-
 while True:
     platums=int((input("Ievadiet platums: ")))
     garums=int((input("Ievadiet garums: ")))

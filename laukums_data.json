@@ -1,3 +1,7 @@
 [
-
+    {
+        "platums": 12,
+        "garums": 5,
+        "laukuums": "60"
+    }
 ]
