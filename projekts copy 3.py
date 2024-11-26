@@ -90,15 +90,6 @@ class Material:
         self.Garums=gar
         self.Platums=plat
         
-        Material_info=str(input("Kadu materialu jūs izvelejas: (1-Linolejs,2-Frizes,3-Lamināts)"))
-        if Material_info == "Linolejs":
-            
-            print("Jūs izvelejas linoleju")
-        elif Material_info == "Flizes":
-            print("Jūs izvelejas Flizes")
-        elif Material_info == "Lamināts":
-            print("Jūs izvelejas Lamināts")
-        
     def Material_info(self):
         Material_info=str(input("Kadu materialu jūs izvelejas: (1-Linolejs,2-Frizes,3-Lamināts)"))
         if Material_info == "Linolejs":
@@ -138,6 +129,15 @@ with open("laukums_data.json","w",encoding='utf-8') as file:
 s1=Laukums(platums,garums)
 s1.aprekinasana()
 s1.Laukuma_info_print()
-    
+s1.M
+'''
+UZ cik taisnsturiem jus varat sadalit istabu?
+s1=67
+s2=34
+ks=91
+flizes izmers(p*g) dalit ar m2 istabai
+laminats iepakojuma raksitais laukums(m2) dalit ar m2 istabai um noapoļot līdz lielakam sk
+linolejs (p*g) dalit ar m2 istabai
+'''
 
 #https://github.com/M4rakesh/uzd/blob/main/mechta.py

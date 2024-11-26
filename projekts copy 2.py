@@ -86,19 +86,27 @@ class Material:
     Garums=0
     Platums=0
     Daudzums=0
-    def __init__(self,gar,plat,daudz):
+    def __init__(self,gar,plat):
         self.Garums=gar
         self.Platums=plat
-        self.Daudzums=daudz
+        
+        Material_info=str(input("Kadu materialu jūs izvelejas: (1-Linolejs,2-Frizes,3-Lamināts)"))
+        if Material_info == "Linolejs":
+            
+            print("Jūs izvelejas linoleju")
+        elif Material_info == "Flizes":
+            print("Jūs izvelejas Flizes")
+        elif Material_info == "Lamināts":
+            print("Jūs izvelejas Lamināts")
         
     def Material_info(self):
-        int(input("Kadu materialu jūs izvelejas: (Linolejs,Frizes,Lamināts)"))
-    if Material_info == "Linolejs":
-        print("Jūs izvelejas linoleju")
-    elif Material_info == "Flizes":
-        print("Jūs izvelejas Flizes")
-    elif Material_info == "Lamināts":
-        print("Jūs izvelejas Lamināts")
+        Material_info=str(input("Kadu materialu jūs izvelejas: (1-Linolejs,2-Frizes,3-Lamināts)"))
+        if Material_info == "Linolejs":
+            print("Jūs izvelejas linoleju")
+        elif Material_info == "Flizes":
+            print("Jūs izvelejas Flizes")
+        elif Material_info == "Lamināts":
+            print("Jūs izvelejas Lamināts")
 
 try:
     with open("laukums_data.json","r",encoding='utf-8') as file:
@@ -119,7 +127,7 @@ while True:
     another=input("Vai vēlaties pievienot vēl vienu laukumu? (jā/nē)")
     if another !="jā":
         break
-
+    mat1=Material()
 
 with open("laukums_data.json","w",encoding='utf-8') as file:
     json.dump(lauukums,file,indent=4)
