@@ -1,16 +1,7 @@
 import itertools
 import datetime
 from datetime import time
-import sqlite3 as db
-
-with db.connect('grida.db') as con:
-    cur=con.cursor()
-    id_klients=int(input("Ievadiet Klienta id: "))
-    vards=input("Ievadiet Klienta vardu: ")
-    uzvards=input("Ievadiet Klienta uzvardu: ")
-    tel_nr=input("Ievadiet Klienta telefona numuru: ")
-    cur.execute("""INSERT INTO Klients(id_klients,vards,uzvards,tel_nr) VALUES(?,?,?,?)""",(id_klients,vards,uzvards,tel_nr))
-    con.commit()
+import json
 
 class Klients:
     Klienta_vaards=""
@@ -95,20 +86,58 @@ class Material:
     Garums=0
     Platums=0
     Daudzums=0
-    def __init__(self,gar,plat,daudz):
+    def __init__(self,gar,plat):
         self.Garums=gar
         self.Platums=plat
-        self.Daudzums=daudz
         
     def Material_info(self):
-        int(input("Kadu materialu jūs izvelejas: (Linolejs,Frizes,Lamināts)"))
-    #def Material_info_print():
-        
-a=int(input("Ievadiet garumu: "))
-b=int(input("Ievadit platumu: "))
-s1=Laukums(b,a)
+        Material_info=str(input("Kadu materialu jūs izvelejas: (1-Linolejs,2-Frizes,3-Lamināts)"))
+        if Material_info == "Linolejs":
+            print("Jūs izvelejas linoleju")
+        elif Material_info == "Flizes":
+            print("Jūs izvelejas Flizes")
+        elif Material_info == "Lamināts":
+            print("Jūs izvelejas Lamināts")
+
+try:
+    with open("laukums_data.json","r",encoding='utf-8') as file:
+        lauukums=json.load(file)
+except FileNotFoundError:
+    lauukums=[]
+while True:
+    platums=int((input("Ievadiet platums: ")))
+    garums=int((input("Ievadiet garums: ")))
+    laukuums=(f"{int(platums) * int(garums)}")
+
+    lauukums.append({
+        "platums":platums,
+        "garums":garums,
+        "laukuums":laukuums
+    })
+
+    another=input("Vai vēlaties pievienot vēl vienu laukumu? (jā/nē)")
+    if another !="jā":
+        break
+    mat1=Material()
+
+with open("laukums_data.json","w",encoding='utf-8') as file:
+    json.dump(lauukums,file,indent=4)
+
+    print("Dati ir veiksmīgi saglabāti JSON failā!")      
+#a=int(input("Ievadiet garumu: "))
+#b=int(input("Ievadit platumu: "))
+s1=Laukums(platums,garums)
 s1.aprekinasana()
 s1.Laukuma_info_print()
-    
+s1.M
+'''
+UZ cik taisnsturiem jus varat sadalit istabu?
+s1=67
+s2=34
+ks=91
+flizes izmers(p*g) dalit ar m2 istabai
+laminats iepakojuma raksitais laukums(m2) dalit ar m2 istabai um noapoļot līdz lielakam sk
+linolejs (p*g) dalit ar m2 istabai
+'''
 
 #https://github.com/M4rakesh/uzd/blob/main/mechta.py
