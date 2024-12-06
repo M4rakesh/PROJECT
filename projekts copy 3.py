@@ -129,7 +129,7 @@ with open("laukums_data.json","w",encoding='utf-8') as file:
 s1=Laukums(platums,garums)
 s1.aprekinasana()
 s1.Laukuma_info_print()
-s1.M
+#s1.M
 '''
 UZ cik taisnsturiem jus varat sadalit istabu?
 s1=67

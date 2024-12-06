@@ -3,15 +3,8 @@ import datetime
 from datetime import time
 import sqlite3 as db
 
-with db.connect('grida.db') as con:
-    cur=con.cursor()
-    id_klients=int(input("Ievadiet Klienta id: "))
-    vards=input("Ievadiet Klienta vardu: ")
-    uzvards=input("Ievadiet Klienta uzvardu: ")
-    tel_nr=input("Ievadiet Klienta telefona numuru: ")
-    cur.execute("""INSERT INTO Klients(id_klients,vards,uzvards,tel_nr) VALUES(?,?,?,?)""",(id_klients,vards,uzvards,tel_nr))
-    con.commit()
 
+    
 class Klients:
     Klienta_vaards=""
     Klienta_uzvaards=""
@@ -19,6 +12,13 @@ class Klients:
     Klienta_tel_numurs=""
     
     id_iter_kl = itertools.count()
+    def info():
+        with db.connect('grida.db') as con:
+            cur=con.cursor()
+            cur.execute("""SELECT * FROM Klients""")
+            order=cur.fetchall()
+            for i in order:
+                print(i)
 
     def __init__(self,_vaards,_uzvaards,_pk,_tel_numurs):
         self.Klienta_id = next(self.id_iter_kl) + 1
@@ -35,7 +35,14 @@ class Klients:
         print("Klienta uzvārds: " + str(self.Klienta_uzvaards))
         print("Klienta personas kods : "+ str(self.Klienta_PK))
         print("Klienta Tel. numurs : " + str(self.Klienta_tel_numurs)) 
-
+    def Klientt():
+        with db.connect('grida.db') as con:
+            cur=con.cursor()
+            id_klients=int(input("Ievadiet Klienta id: "))
+            vards=input("Ievadiet Klienta vardu: ")
+            uzvards=input("Ievadiet Klienta uzvardu: ")
+            tel_nr=input("Ievadiet Klienta telefona numuru: ")
+            cur.execute("""INSERT INTO Klients(id_klients,vards,uzvards,tel_nr) VALUES(?,?,?,?)""",(id_klients,vards,uzvards,tel_nr))
 Klient=[]
 with open("Klienti.txt","a",encoding="utf-8") as fail:
     while True:
@@ -86,7 +93,17 @@ class Laukums:
         print("Paltums gridai: "+ str(self.Platums_gridai))
         print("Garums gridai: " + str(self.Garums_gridai))
         print("Laukums gridai: "+ str(self.Laukuma))
-        
+    def Laukum():
+        with db.connect('grida.db') as con:
+            cur=con.cursor()
+            id_lauk=int(input("Ievadiet Laukuma id: "))
+            platums=input("Ievadiet platumu: ")
+            garums=input("Ievadiet garumu: ")
+            laukums=platums*garums
+            cur.execute("""INSERT INTO Laukums(id_lauk,platums,garums,laukums) VALUES(?,?,?,?)""",(id_lauk,platums,garums,laukums))
+            con.commit()
+    
+
 
 class Material:
     Laminats=''
@@ -102,13 +119,42 @@ class Material:
         
     def Material_info(self):
         int(input("Kadu materialu jūs izvelejas: (Linolejs,Frizes,Lamināts)"))
-    #def Material_info_print():
-        
-a=int(input("Ievadiet garumu: "))
-b=int(input("Ievadit platumu: "))
-s1=Laukums(b,a)
-s1.aprekinasana()
-s1.Laukuma_info_print()
+    def Materials():
+        with db.connect('grida.db') as con:
+            cur=con.cursor()
+            id_mater=int(input("materiala id: "))
+            mater_veids=input("Ievadiet material veidu: ")
+            mater_izmers=input("Ievadiet materiala izmeru: ")
+            cur.execute("""INSERT INTO Material(id_mater,mater_veids,mater_izmers) VALUES(?,?,?)""",(id_mater,mater_veids,mater_izmers))
+            con.commit()
+def main():
+    #load_data()
+    #find_organization_by_id()
+    #count_organizations()
+    #organization_exists()
+    #list_organition_ids()
+    #delete_organization_by_id()
+    while (True):
+        response=input('(1)Pievieno apmeklētāju (2) Izprinte apmeklētāja datus (3)Iziet (4)atjaunot datus ')
+        if response=='1':
+            Klients.Klientt()
+            Laukums.Laukum()
+            Material.Materials()
+        elif response=='2':
+            Klients.info()
+        elif response=='3':
+            print('gg,ja livaju tima rakov!')
+            exit()
+        elif response=='4':
+            
+            
+            print('gg,ja livaju tima rakov!')
+            
+        else:
+            print('Choose a number between 1 and 4')
+            continue
+main()
+
     
 
 #https://github.com/M4rakesh/uzd/blob/main/mechta.py
