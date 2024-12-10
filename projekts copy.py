@@ -43,7 +43,44 @@ class Klients:
             uzvards=input("Ievadiet Klienta uzvardu: ")
             tel_nr=input("Ievadiet Klienta telefona numuru: ")
             cur.execute("""INSERT INTO Klients(id_klients,vards,uzvards,tel_nr) VALUES(?,?,?,?)""",(id_klients,vards,uzvards,tel_nr))
+    def delete_data():
+        with db.connect('grida.db') as con:
+            a=input("Ievadiet ID: ")
+            con.execute(f"DELETE from Klients where id_klients={a};")
+    def atjaunot_datus():
+        with db.connect('grida.db') as con:
+            g=input("Ievadiet Klienta ID: ")
+            h=input("Ievadiet jaunu telefonu: ")
+            con.execute(f"UPDATE Klients set tel_nr={h} where id_klients={g}")
+    def atrast():
+        with db.connect('grida.db') as con:
+            cur=con.cursor()
+            while True:
+                t=int(input("Ievadiet id,kuru velaties atrast vai 0 ja pardoma"))
+                if t != 0 :
+                    print(f"Klients ar ID {t} tika atrasta  !")
+                    cur.execute(f"SELECT * FROM Klients WHERE id_klients = {t}")
+                    con.commit()
+                    info=cur.fetchall()
+                    for rinda in info:
+                        print(rinda)                       
+                elif t == 0:
+                    print("Jus atsutija atpakaļ!")
+                    break
+                else:
+                    pass
+    def join_data():
+        with db.connect('grida.db') as con:
+            cur=con.cursor()
+            cur.execute("SELECT Vards,Uzvards,tel_nr From Klients INNER JOIN Info ON Klients.id_klients == Info.id_klients")
+            #c=input("Ievadiet Klienta ID: ")
+            order=cur.fetchall()
+            for i in order:
+                print(i)
+
+
 Klient=[]
+    
 with open("Klienti.txt","a",encoding="utf-8") as fail:
     while True:
         
@@ -135,7 +172,7 @@ def main():
     #list_organition_ids()
     #delete_organization_by_id()
     while (True):
-        response=input('(1)Pievieno apmeklētāju (2) Izprinte apmeklētāja datus (3)Iziet (4)atjaunot datus ')
+        response=input('(1)Pievieno Klientu (2) Izprinte Klienta datus (3)divas datas (4)dzest datu (5)meklet datus (6)atjaunot datus (7)Iziet ')
         if response=='1':
             Klients.Klientt()
             Laukums.Laukum()
@@ -143,15 +180,19 @@ def main():
         elif response=='2':
             Klients.info()
         elif response=='3':
+            Klients.join_data()
+        elif response=='4':
+            Klients.delete_data()
+        elif response=='5':
+            Klients.atrast()
+        elif response=='6':
+            Klients.atjaunot_datus()
+        elif response=='7':
             print('gg,ja livaju tima rakov!')
             exit()
-        elif response=='4':
-            
-            
-            print('gg,ja livaju tima rakov!')
             
         else:
-            print('Choose a number between 1 and 4')
+            print('Choose a number between 1 and 7')
             continue
 main()
 
