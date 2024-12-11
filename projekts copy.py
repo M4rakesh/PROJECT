@@ -81,7 +81,7 @@ class Klients:
 
 Klient=[]
     
-with open("Klienti.txt","a",encoding="utf-8") as fail:
+'''with open("Klienti.txt","a",encoding="utf-8") as fail:
     while True:
         
 
@@ -100,7 +100,7 @@ with open("Klienti.txt","a",encoding="utf-8") as fail:
             
         else:
             print("Paldies par uzmanibu!")
-            break
+            break'''
 class Laukums:
     
     Platums_gridai = 0
