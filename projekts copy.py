@@ -136,7 +136,7 @@ class Laukums:
             id_lauk=int(input("Ievadiet Laukuma id: "))
             platums=input("Ievadiet platumu: ")
             garums=input("Ievadiet garumu: ")
-            laukums=platums*garums
+            laukums=int(platums)*int(garums)
             cur.execute("""INSERT INTO Laukums(id_lauk,platums,garums,laukums) VALUES(?,?,?,?)""",(id_lauk,platums,garums,laukums))
             con.commit()
     
