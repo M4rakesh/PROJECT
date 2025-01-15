@@ -13,7 +13,7 @@ def pievienot_klientu():
 
         if vards and uzvards and tel_nr.isdigit():
                 if vards:
-                    cursor.execute("SELECT vards FROM Klients WHERE vards LIKE ?", (f"%{vards}%"))
+                    cursor.execute("SELECT vards FROM Klients WHERE vards LIKE ?", (f"%{vards}%",))
                     rezultati = cursor.fetchall()
                     if rezultati:
                         rezultati_str = ""
