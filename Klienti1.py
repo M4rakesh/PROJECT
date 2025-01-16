@@ -13,7 +13,7 @@ def pievienot_klientu():
 
         if vards and uzvards and tel_nr.isdigit():
                 if vards:
-                    cursor.execute("SELECT vards FROM Klients WHERE vards LIKE ?", (f"%{vards}%",))
+                    cursor.execute("SELECT vards FROM Klients WHERE vards LIKE ?", (f"%{vards}%"))
                     rezultati = cursor.fetchall()
                     if rezultati:
                         rezultati_str = ""
@@ -62,9 +62,9 @@ def meklēt_klientu():
                 rezultati_str = ""
                 for r in rezultati:
                     rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}\n"
-                    messagebox.showinfo("Rezultāti", f"{r[0]}: Vards: {r[1]} UZvards: {r[2]}, Talrunis: {r[3]}\n")
+                    messagebox.showinfo("Rezultāti", f"{r[0]}: Vards: {r[1]} Uzvards: {r[2]}, Talrunis: {r[3]}\n")
             else:
-                messagebox.showinfo("Rezultāti", "Netika atrasts neviens klientu.")
+                messagebox.showinfo("Rezultāti", "Netika atrasts neviens Laukums.")
         else:
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet klienta vārdu!")
 
