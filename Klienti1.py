@@ -12,15 +12,15 @@ def pievienot_klientu():
         tel_nr = tel_nr_entry.get()
 
         if vards and uzvards and tel_nr.isdigit():
-                if vards:
-                    cursor.execute("SELECT vards FROM Klients WHERE vards LIKE ?", (f"%{vards}%"))
+                if vards and uzvards:
+                    cursor.execute("SELECT vards,uzvards FROM Klients WHERE vards LIKE ? and uzvards LIKE ?", (f"%{vards}%",f"%{uzvards}%"))
                     rezultati = cursor.fetchall()
                     if rezultati:
                         rezultati_str = ""
                         for r in rezultati:
-                            rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}\n"
-                            messagebox.showinfo("Rezultāti", f"{r[0]}: Vards: {r[1]} Uzvards: {r[2]}, Talrunis: {r[3]}\n")
-                            messagebox.showinfo("Veiksmīgi", "klientu ekseste sistema!")
+                            rezultati_str += f"{r[0]}: {r[1]} \n"
+                            messagebox.showinfo("Rezultāts", f"{r[0]} {r[1]} Veiksmīgi, klientu ekseste sistema!")
+                            
                 else:
                     cursor.execute(
                         "INSERT INTO Klients (vards, uzvards, tel_nr) VALUES (?, ?, ?)",
@@ -34,7 +34,7 @@ def pievienot_klientu():
 
     logs = tk.Toplevel()
     logs.title("Pievienot Klientu")
-    logs.geometry("300x300")
+    logs.geometry("300x300+700+450")
 
     tk.Label(logs, text="Vārds:").pack()
     vards_entry = tk.Entry(logs)
@@ -106,7 +106,7 @@ def dzēst_klientu():
 def klientu_logs():
     klientu_logs = tk.Toplevel()
     klientu_logs.title("Klientu pārvaldība")
-    klientu_logs.geometry("300x250")
+    klientu_logs.geometry("300x250+700+450")
 
     pievienot_btn = tk.Button(klientu_logs, text="Pievienot klientu", command=pievienot_klientu, width=25, height=2, bg="lightblue")
     pievienot_btn.pack(pady=10)
