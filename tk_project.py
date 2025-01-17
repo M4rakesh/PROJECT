@@ -16,9 +16,9 @@ def izveidot_galveno_logu():
         messagebox.showinfo("Apmeklējumi", "Atvērta apmeklējumu pārvaldība.")
 
     logs = tk.Tk()
-    logs.title("Trenažieru zāles pārvaldība")
-    logs.geometry("300x200+700+450")
-
+    logs.title("GLR")
+    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
+    logs.configure(bg="violet")
     Klients_btn = tk.Button(logs, text="Klienti", command=klienti_poga, width=20, height=2, bg="lightblue")
     Klients_btn.pack(pady=10)
 
