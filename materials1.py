@@ -1,30 +1,33 @@
 import sqlite3
 import tkinter as tk
+import tkinter as ttk
 from tkinter import messagebox
 
 conn = sqlite3.connect('grida.db')
 cursor = conn.cursor()
 
-def pievienot_laukumu():
-    def saglabat_laukumu():
+def pievienot_materialu():
+    def saglabat_materialu():
+        materials = materials_entry.get()
         platums = platums_entry.get()
-        garums = garums_entry.get()             
-        
+        garums = garums_entry.get()                
+        cena = cena_entry.get()
 
-        if platums and garums.isdigit():
+
+        if platums and garums and cena and materials:
             cursor.execute(
-                "INSERT INTO Laukums (platums,garums,laukums) VALUES (?, ?, ?)",
-                (float(platums),float(garums), (float(platums)*float(garums)))
-            )
+                "INSERT INTO Material (mater_veids,platums,garums,mater_izmers,cena) VALUES (?, ?, ?,?,?)",
+                (materials,float(platums),float(garums),str(platums)+"x"+str(garums),float(cena)))
             conn.commit()
-            messagebox.showinfo("Veiksmīgi", "Laukums pievienots!")
+            messagebox.showinfo("Veiksmīgi", "Materials pievienots!")
             logs.destroy()
         else:
             messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
 
     logs = tk.Toplevel()
-    logs.title("Pievienot Laukumu")
-    logs.geometry(f"300x150+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-75}")
+    logs.title("Pievienot Materalu")
+    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
+    logs.configure(bg="#6F5100")
 
     tk.Label(logs, text="Platums:").pack()
     platums_entry = tk.Entry(logs)
@@ -34,15 +37,23 @@ def pievienot_laukumu():
     garums_entry = tk.Entry(logs)
     garums_entry.pack()
 
-    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_laukumu)
+    tk.Label(logs, text="Materila veids: (flizes,laminats,linolejs)").pack()
+    materials_entry = tk.Entry(logs)
+    materials_entry.pack()
+
+    tk.Label(logs, text="Cena:").pack()
+    cena_entry = tk.Entry(logs)
+    cena_entry.pack()
+
+    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_materialu)
     saglabat_btn.pack(pady=10)
 
 
-def meklēt_laukumu():
-    def atrast_laukumu():
+def meklēt_materialu():
+    def atrast_materialu():
         platums = platums_entry.get()
         if platums:
-            cursor.execute("SELECT * FROM Laukums WHERE platums LIKE ?", (f"%{platums}%",))
+            cursor.execute("SELECT * FROM Material WHERE platums LIKE ?", (f"%{platums}%",))
             rezultati = cursor.fetchall()
             if rezultati:
                 rezultati_str = ""
@@ -56,52 +67,55 @@ def meklēt_laukumu():
 
     logs = tk.Toplevel()
     logs.title("Meklēt Gridas laukumu")
-    logs.geometry(f"300x150+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-75}")
+    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
+    logs.configure(bg="#6F5100")
 
     tk.Label(logs, text="Platumu:").pack()
     platums_entry = tk.Entry(logs)
     platums_entry.pack()
 
-    meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_laukumu)
+    meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_materialu)
     meklēt_btn.pack(pady=10)
 
 
-def dzēst_laukumu():
-    def dzēst_laukumu_no_db():
-        id_lauk = id_lauk_entry.get()
-        if id_lauk.isdigit():
-            cursor.execute("DELETE FROM Laukums WHERE id_lauk = ?", (id_lauk))
+def dzēst_materialu():
+    def dzēst_materialu_no_db():
+        id_mater = id_mater_entry.get()
+        if id_mater.isdigit():
+            cursor.execute("DELETE FROM Material WHERE id_mater = ?", (id_mater))
             conn.commit()
-            messagebox.showinfo("Veiksmīgi", f"Laukums ar ID {id_lauk} tika izdzēsts!")
+            messagebox.showinfo("Veiksmīgi", f"Laukums ar ID {id_mater} tika izdzēsts!")
             logs.destroy()
         else:
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet derīgu ID!")
 
     logs = tk.Toplevel()
     logs.title("Dzēst Laukumi")
-    logs.geometry(f"300x150+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-75}")
+    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
+    logs.configure(bg="#6F5100")
 
     tk.Label(logs, text="Laukuma ID:").pack()
-    id_lauk_entry = tk.Entry(logs)
-    id_lauk_entry.pack()
+    id_mater_entry = tk.Entry(logs)
+    id_mater_entry.pack()
 
-    dzēst_btn = tk.Button(logs, text="Dzēst", command=dzēst_laukumu_no_db)
+    dzēst_btn = tk.Button(logs, text="Dzēst", command=dzēst_materialu_no_db)
     dzēst_btn.pack(pady=10)
 
 
-def laukums_logs():
-    laukums_logs = tk.Toplevel()
-    laukums_logs.title("Klientu pārvaldība")
-    laukums_logs.geometry(f"300x150+{int((root.winfo_screenwidth())/2)-150}+{int((root.winfo_screenheight())/2)-75}")
+def materials_logs():
+    materials_logs = tk.Toplevel()
+    materials_logs.title("Klientu pārvaldība")
+    materials_logs.geometry(f"300x250+{int((materials_logs.winfo_screenwidth())/2)-150}+{int((materials_logs.winfo_screenheight())/2)-125}")
+    materials_logs.configure(bg="#6F5100")
 
-    pievienot_btn = tk.Button(laukums_logs, text="Pievienot gridas laukumu", command=pievienot_laukumu, width=25, height=2, bg="lightblue")
+    pievienot_btn = tk.Button(materials_logs, text="Pievienot gridas laukumu", command=pievienot_materialu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     pievienot_btn.pack(pady=10)
 
-    meklēt_btn = tk.Button(laukums_logs, text="Meklēt gridas laukumu", command=meklēt_laukumu, width=25, height=2, bg="lightgreen")
+    meklēt_btn = tk.Button(materials_logs, text="Meklēt gridas laukumu", command=meklēt_materialu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     meklēt_btn.pack(pady=10)
 
-    dzēst_btn = tk.Button(laukums_logs, text="Dzēst gridas laukumu", command=dzēst_laukumu, width=25, height=2, bg="lightyellow")
+    dzēst_btn = tk.Button(materials_logs, text="Dzēst gridas laukumu", command=dzēst_materialu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     dzēst_btn.pack(pady=10)
 
-    iziet_btn = tk.Button(laukums_logs, text="Iziet", command=laukums_logs.destroy, width=25, height=2, bg="red", fg="white")
+    iziet_btn = tk.Button(materials_logs, text="Iziet", command=materials_logs.destroy, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     iziet_btn.pack(pady=10)

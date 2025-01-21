@@ -24,7 +24,7 @@ def pievienot_laukumu():
 
     logs = tk.Toplevel()
     logs.title("Pievienot Laukumu")
-    logs.geometry("300x300+700+450")
+    logs.geometry("300x200"+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100})
 
     tk.Label(logs, text="Platums:").pack()
     platums_entry = tk.Entry(logs)
@@ -56,7 +56,7 @@ def meklēt_laukumu():
 
     logs = tk.Toplevel()
     logs.title("Meklēt Gridas laukumu")
-    logs.geometry("300x200+700+450")
+    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
 
     tk.Label(logs, text="Platumu:").pack()
     platums_entry = tk.Entry(logs)
@@ -70,7 +70,7 @@ def dzēst_laukumu():
     def dzēst_laukumu_no_db():
         id_lauk = id_lauk_entry.get()
         if id_lauk.isdigit():
-            cursor.execute("DELETE FROM Laukums WHERE id_lauk = ?", (id_lauk))
+            cursor.execute("DELETE FROM Laukums WHERE id_lauk = ?", (id_lauk,))
             conn.commit()
             messagebox.showinfo("Veiksmīgi", f"Laukums ar ID {id_lauk} tika izdzēsts!")
             logs.destroy()
@@ -79,7 +79,7 @@ def dzēst_laukumu():
 
     logs = tk.Toplevel()
     logs.title("Dzēst Laukumi")
-    logs.geometry("300x150+700+450")
+    logs.geometry("300x200"+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100})
 
     tk.Label(logs, text="Laukuma ID:").pack()
     id_lauk_entry = tk.Entry(logs)
@@ -91,17 +91,18 @@ def dzēst_laukumu():
 
 def laukums_logs():
     laukums_logs = tk.Toplevel()
-    laukums_logs.title("Klientu pārvaldība")
-    laukums_logs.geometry("300x250+700+450")
+    laukums_logs.title("Gridas Laukums")
+    laukums_logs.geometry(f"300x250+{int((laukums_logs.winfo_screenwidth())/2)-150}+{int((laukums_logs.winfo_screenheight())/2)-125}")
+    laukums_logs.configure(bg="#6F5100")
 
-    pievienot_btn = tk.Button(laukums_logs, text="Pievienot gridas laukumu", command=pievienot_laukumu, width=25, height=2, bg="lightblue")
+    pievienot_btn = tk.Button(laukums_logs, text="Pievienot gridas laukumu", command=pievienot_laukumu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     pievienot_btn.pack(pady=10)
 
-    meklēt_btn = tk.Button(laukums_logs, text="Meklēt gridas laukumu", command=meklēt_laukumu, width=25, height=2, bg="lightgreen")
+    meklēt_btn = tk.Button(laukums_logs, text="Meklēt gridas laukumu", command=meklēt_laukumu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     meklēt_btn.pack(pady=10)
 
-    dzēst_btn = tk.Button(laukums_logs, text="Dzēst gridas laukumu", command=dzēst_laukumu, width=25, height=2, bg="lightyellow")
+    dzēst_btn = tk.Button(laukums_logs, text="Dzēst gridas laukumu", command=dzēst_laukumu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     dzēst_btn.pack(pady=10)
 
-    iziet_btn = tk.Button(laukums_logs, text="Iziet", command=laukums_logs.destroy, width=25, height=2, bg="red", fg="white")
+    iziet_btn = tk.Button(laukums_logs, text="Iziet", command=laukums_logs.destroy, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     iziet_btn.pack(pady=10)

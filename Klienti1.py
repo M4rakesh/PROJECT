@@ -34,7 +34,8 @@ def pievienot_klientu():
 
     logs = tk.Toplevel()
     logs.title("Pievienot Klientu")
-    logs.geometry("300x300+700+450")
+    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
+    logs.configure(bg="#6F5100")
 
     tk.Label(logs, text="Vārds:").pack()
     vards_entry = tk.Entry(logs)
@@ -64,13 +65,14 @@ def meklēt_klientu():
                     rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}\n"
                     messagebox.showinfo("Rezultāti", f"{r[0]}: Vards: {r[1]} Uzvards: {r[2]}, Talrunis: {r[3]}\n")
             else:
-                messagebox.showinfo("Rezultāti", "Netika atrasts neviens Laukums.")
+                messagebox.showinfo("Rezultāti", "Netika atrasts neviens Klients.")
         else:
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet klienta vārdu!")
 
     logs = tk.Toplevel()
     logs.title("Meklēt Klientu")
-    logs.geometry("300x200")
+    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
+    logs.configure(bg="#6F5100")
 
     tk.Label(logs, text="Klienta vārds:").pack()
     vards_entry = tk.Entry(logs)
@@ -93,8 +95,8 @@ def dzēst_klientu():
 
     logs = tk.Toplevel()
     logs.title("Dzēst Klientu")
-    logs.geometry("300x150")
-
+    logs.geometry("300x200"+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100})
+    logs.configure(bg="#6F5100")
     tk.Label(logs, text="Klienta ID:").pack()
     id_klientu_entry = tk.Entry(logs)
     id_klientu_entry.pack()
@@ -106,16 +108,16 @@ def dzēst_klientu():
 def klientu_logs():
     klientu_logs = tk.Toplevel()
     klientu_logs.title("Klientu pārvaldība")
-    klientu_logs.geometry("300x250+700+450")
-
-    pievienot_btn = tk.Button(klientu_logs, text="Pievienot klientu", command=pievienot_klientu, width=25, height=2, bg="lightblue")
+    klientu_logs.geometry(f"300x250+{int((klientu_logs.winfo_screenwidth())/2)-150}+{int((klientu_logs.winfo_screenheight())/2)-125}")
+    klientu_logs.configure(bg="#6F5100")
+    pievienot_btn = tk.Button(klientu_logs, text="Pievienot klientu", command=pievienot_klientu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     pievienot_btn.pack(pady=10)
 
-    meklēt_btn = tk.Button(klientu_logs, text="Meklēt klientu", command=meklēt_klientu, width=25, height=2, bg="lightgreen")
+    meklēt_btn = tk.Button(klientu_logs, text="Meklēt klientu", command=meklēt_klientu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     meklēt_btn.pack(pady=10)
 
-    dzēst_btn = tk.Button(klientu_logs, text="Dzēst klientu", command=dzēst_klientu, width=25, height=2, bg="lightyellow")
+    dzēst_btn = tk.Button(klientu_logs, text="Dzēst klientu", command=dzēst_klientu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     dzēst_btn.pack(pady=10)
 
-    iziet_btn = tk.Button(klientu_logs, text="Iziet", command=klientu_logs.destroy, width=25, height=2, bg="red", fg="white")
+    iziet_btn = tk.Button(klientu_logs, text="Iziet", command=klientu_logs.destroy, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     iziet_btn.pack(pady=10)
