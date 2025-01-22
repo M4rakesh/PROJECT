@@ -24,7 +24,7 @@ def pievienot_laukumu():
 
     logs = tk.Toplevel()
     logs.title("Pievienot Laukumu")
-    logs.geometry("300x200"+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100})
+    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
 
     tk.Label(logs, text="Platums:").pack()
     platums_entry = tk.Entry(logs)
@@ -79,7 +79,7 @@ def dzēst_laukumu():
 
     logs = tk.Toplevel()
     logs.title("Dzēst Laukumi")
-    logs.geometry("300x200"+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100})
+    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
 
     tk.Label(logs, text="Laukuma ID:").pack()
     id_lauk_entry = tk.Entry(logs)

@@ -26,7 +26,7 @@ def pievienot_materialu():
 
     logs = tk.Toplevel()
     logs.title("Pievienot Materalu")
-    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
+    logs.geometry(f"300x200"+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100})
     logs.configure(bg="#6F5100")
 
     tk.Label(logs, text="Platums:").pack()
@@ -91,7 +91,7 @@ def dzēst_materialu():
 
     logs = tk.Toplevel()
     logs.title("Dzēst Laukumi")
-    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
+    logs.geometry(f"300x200"+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100})
     logs.configure(bg="#6F5100")
 
     tk.Label(logs, text="Laukuma ID:").pack()

@@ -19,16 +19,16 @@ def pievienot_klientu():
                         rezultati_str = ""
                         for r in rezultati:
                             rezultati_str += f"{r[0]}: {r[1]} \n"
-                            messagebox.showinfo("Rezultāts", f"{r[0]} {r[1]} Veiksmīgi, klientu ekseste sistema!")
+                            messagebox.showinfo("Rezultāts", f"{r[0]} {r[1]}, klientu ekseste sistema!")
                             
-                else:
-                    cursor.execute(
-                        "INSERT INTO Klients (vards, uzvards, tel_nr) VALUES (?, ?, ?)",
-                        (vards, uzvards, tel_nr)
-                    )
-                    conn.commit()
-                    messagebox.showinfo("Veiksmīgi", "klientu pievienots!")
-                    logs.destroy()
+                    else:
+                        cursor.execute(
+                            "INSERT INTO Klients (vards, uzvards, tel_nr) VALUES (?, ?, ?)",
+                            (vards, uzvards, tel_nr)
+                        )
+                        conn.commit()
+                        messagebox.showinfo("Veiksmīgi", "klientu pievienots!")
+                        logs.destroy()
         else:
                     messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
 
@@ -95,7 +95,7 @@ def dzēst_klientu():
 
     logs = tk.Toplevel()
     logs.title("Dzēst Klientu")
-    logs.geometry("300x200"+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100})
+    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
     tk.Label(logs, text="Klienta ID:").pack()
     id_klientu_entry = tk.Entry(logs)
@@ -110,6 +110,7 @@ def klientu_logs():
     klientu_logs.title("Klientu pārvaldība")
     klientu_logs.geometry(f"300x250+{int((klientu_logs.winfo_screenwidth())/2)-150}+{int((klientu_logs.winfo_screenheight())/2)-125}")
     klientu_logs.configure(bg="#6F5100")
+
     pievienot_btn = tk.Button(klientu_logs, text="Pievienot klientu", command=pievienot_klientu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     pievienot_btn.pack(pady=10)
 
