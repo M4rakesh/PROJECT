@@ -4,6 +4,7 @@ from tkinter import messagebox
 from Klienti1 import klientu_logs
 from Laukums_grida1 import laukums_logs
 from materials1 import materials_logs
+from allinfo1 import info_logs
 
 def izveidot_galveno_logu():
     def klienti_poga():
@@ -14,11 +15,14 @@ def izveidot_galveno_logu():
 
     def materiali_poga():
         materials_logs()
+
+    def info_poga():
+        info_logs()
         
 
     logs = tk.Tk()
     logs.title("GLR")
-    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
+    logs.geometry(f"300x300+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-150}")
     logs.configure(bg="#6F5100")
     Klients_btn = tk.Button(logs, text="Klienti", command=klienti_poga, width=20, height=2, bg="#FFE86E",activebackground="yellow")
     Klients_btn.pack(pady=10)
@@ -28,6 +32,9 @@ def izveidot_galveno_logu():
 
     apmeklejumi_btn = tk.Button(logs, text="Materiali", command=materiali_poga, width=20, height=2, bg="#FFE86E",activebackground="yellow")
     apmeklejumi_btn.pack(pady=10)
+
+    info_btn = tk.Button(logs, text="Visa informacija", command=info_poga, width=20, height=2, bg="#FFE86E",activebackground="yellow")
+    info_btn.pack(pady=10)
 
     logs.mainloop()
 

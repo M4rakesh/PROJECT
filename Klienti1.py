@@ -37,19 +37,19 @@ def pievienot_klientu():
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
 
-    tk.Label(logs, text="Vārds:").pack()
+    tk.Label(logs, text="Vārds:",bg="#6F5100").pack()
     vards_entry = tk.Entry(logs)
     vards_entry.pack()
 
-    tk.Label(logs, text="Uzvārds:").pack()
+    tk.Label(logs, text="Uzvārds:",bg="#6F5100").pack()
     uzvards_entry = tk.Entry(logs)
     uzvards_entry.pack()
 
-    tk.Label(logs, text="Tālrunis:").pack()
+    tk.Label(logs, text="Tālrunis:",bg="#6F5100").pack()
     tel_nr_entry = tk.Entry(logs)
     tel_nr_entry.pack()
 
-    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_klientu)
+    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_klientu,)
     saglabat_btn.pack(pady=10)
 
 
@@ -74,11 +74,11 @@ def meklēt_klientu():
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
 
-    tk.Label(logs, text="Klienta vārds:").pack()
+    tk.Label(logs, text="Klienta vārds:",bg="#6F5100").pack()
     vards_entry = tk.Entry(logs)
     vards_entry.pack()
 
-    meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_klientu)
+    meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_klientu,bg="#6F5100")
     meklēt_btn.pack(pady=10)
 
 
@@ -94,7 +94,7 @@ def dzēst_klientu():
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet derīgu ID!")
 
     logs = tk.Toplevel()
-    logs.title("Dzēst Klientu")
+    logs.title("Dzēst Klientu",bg="#6F5100")
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
     tk.Label(logs, text="Klienta ID:").pack()
