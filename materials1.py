@@ -45,7 +45,7 @@ def pievienot_materialu():
     cena_entry = tk.Entry(logs)
     cena_entry.pack()
 
-    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_materialu)
+    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_materialu,bg="yellow")
     saglabat_btn.pack(pady=10)
 
 
@@ -66,7 +66,7 @@ def meklēt_materialu():
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet klienta vārdu!")
 
     logs = tk.Toplevel()
-    logs.title("Meklēt Materialu",)
+    logs.title("Meklēt Materialu")
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
 
@@ -74,7 +74,7 @@ def meklēt_materialu():
     platums_entry = tk.Entry(logs)
     platums_entry.pack()
 
-    meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_materialu)
+    meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_materialu,bg="yellow")
     meklēt_btn.pack(pady=10)
 
 
@@ -98,7 +98,7 @@ def dzēst_materialu():
     id_mater_entry = tk.Entry(logs)
     id_mater_entry.pack()
 
-    dzēst_btn = tk.Button(logs, text="Dzēst", command=dzēst_materialu_no_db)
+    dzēst_btn = tk.Button(logs, text="Dzēst", command=dzēst_materialu_no_db,bg="yellow")
     dzēst_btn.pack(pady=10)
 
 

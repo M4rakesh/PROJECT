@@ -49,7 +49,7 @@ def pievienot_klientu():
     tel_nr_entry = tk.Entry(logs)
     tel_nr_entry.pack()
 
-    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_klientu,)
+    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_klientu,bg="yellow")
     saglabat_btn.pack(pady=10)
 
 
@@ -94,14 +94,14 @@ def dzēst_klientu():
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet derīgu ID!")
 
     logs = tk.Toplevel()
-    logs.title("Dzēst Klientu",bg="#6F5100")
+    logs.title("Dzēst Klientu")
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
     tk.Label(logs, text="Klienta ID:").pack()
     id_klientu_entry = tk.Entry(logs)
     id_klientu_entry.pack()
 
-    dzēst_btn = tk.Button(logs, text="Dzēst", command=dzēst_klientu_no_db)
+    dzēst_btn = tk.Button(logs, text="Dzēst", command=dzēst_klientu_no_db,bg="yellow")
     dzēst_btn.pack(pady=10)
 
 

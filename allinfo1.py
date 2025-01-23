@@ -21,12 +21,14 @@ def show_info():
         else:
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet korektu klienta id!")
     logs = tk.Toplevel()
-    logs.title("Rediģēt skolnieka informāciju")
-    logs.geometry("300x200")
-    tk.Label(logs, text=" id:").pack()
+    logs.title("Klienta informācija")
+    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
+    logs.configure(bg="#6F5100")
+
+    tk.Label(logs, text=" id:",bg="#6F5100").pack()
     id_info_entry = tk.Entry(logs)
     id_info_entry.pack()
-    meklēt_btn = tk.Button(logs, text="Meklēt", command=show_infoo,overrelief="ridge",)
+    meklēt_btn = tk.Button(logs, text="Meklēt", command=show_infoo,overrelief="ridge",bg="yellow")
     meklēt_btn.pack(pady=10)
 
 def info_logs():
