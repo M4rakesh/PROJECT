@@ -11,7 +11,7 @@ def pievienot_laukumu():
         garums = garums_entry.get()             
         
 
-        if platums and garums.isdigit():
+        if platums and garums:
             cursor.execute(
                 "INSERT INTO Laukums (platums,garums,laukums) VALUES (?, ?, ?)",
                 (float(platums),float(garums), (float(platums)*float(garums)))
