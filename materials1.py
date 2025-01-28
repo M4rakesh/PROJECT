@@ -3,6 +3,7 @@ import tkinter as tk
 import tkinter as ttk
 from tkinter import messagebox
 
+
 conn = sqlite3.connect('grida.db')
 cursor = conn.cursor()
 
@@ -50,10 +51,25 @@ def pievienot_materialu():
 
 
 def meklēt_materialu():
+    def mater_list():
+        global materials
+        conn= sqlite3.connect('grida.db')
+        cursor=conn.cursor()
+        cursor.execute("SELECT platums FROM Material")
+        materials = []
+        mater_all=cursor.fetchall()
+        for mater in mater_all:
+            materials.append(mater[0])
+        print(materials)
+        conn.close()
+
+
+
     def atrast_materialu():
         platums = platums_entry.get()
+        
         if platums:
-            cursor.execute("SELECT * FROM Material WHERE platums LIKE ?", (f"%{platums}%",))
+            cursor.execute("SELECT * FROM Material WHERE platums and mater_veids LIKE ?", (f"%{platums}%"))
             rezultati = cursor.fetchall()
             if rezultati:
                 rezultati_str = ""
@@ -62,6 +78,11 @@ def meklēt_materialu():
                     messagebox.showinfo("Rezultāti", f"{r[0]}: platums: {r[1]} garums: {r[2]}, Laukums: {r[3]}\n")
             else:
                 messagebox.showinfo("Rezultāti", "Netika atrasts neviens gridas laukums.")
+            materi = mater_combobox.get()
+            conn = sqlite3.connect('grida.db')
+            cursor = conn.cursor()
+            cursor.execute("SELECT id_mater FROM Material WHERE mater_veids LIKE ?", (materi,),)
+            rezultati = cursor.fetchall()
         else:
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet klienta vārdu!")
 
@@ -73,6 +94,18 @@ def meklēt_materialu():
     tk.Label(logs, text="Platumu:",bg="#6F5100").pack()
     platums_entry = tk.Entry(logs)
     platums_entry.pack()
+
+
+    #mater_list()
+
+    tk.Label(logs,text="Materials1").pack()
+    mater_combobox = ttk.Combobox(logs,width=20,state="readonly",values= materials, command=mater_list)
+    mater_combobox.pack()
+
+
+    tk.Label(logs,text="Materials").pack()
+    mater_combobox1 = tk.Entry(logs)
+    mater_combobox1.pack()
 
     meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_materialu,bg="yellow")
     meklēt_btn.pack(pady=10)

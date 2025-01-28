@@ -6,6 +6,7 @@ from Laukums_grida1 import laukums_logs
 from materials1 import materials_logs
 from allinfo1 import info_logs
 
+
 def izveidot_galveno_logu():
     def klienti_poga():
         klientu_logs()
