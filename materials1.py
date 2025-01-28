@@ -1,7 +1,7 @@
 import sqlite3
 import tkinter as tk
 import tkinter as ttk
-from tkinter import messagebox
+from tkinter import messagebox,ttk
 
 
 conn = sqlite3.connect('grida.db')
@@ -96,10 +96,10 @@ def meklēt_materialu():
     platums_entry.pack()
 
 
-    #mater_list()
+    mater_list()
 
     tk.Label(logs,text="Materials1").pack()
-    mater_combobox = ttk.Combobox(logs,width=20,state="readonly",values= materials, command=mater_list)
+    mater_combobox = ttk.Combobox(logs,width=20,state="readonly",values= materials)
     mater_combobox.pack()
 
 

@@ -34,6 +34,9 @@ def pievienot_laukumu():
     tk.Label(logs, text="Garums:",bg="#6F5100").pack()
     garums_entry = tk.Entry(logs)
     garums_entry.pack()
+    
+    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_laukumu,bg="yellow")
+    saglabat_btn.pack(pady=10)
 
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_laukumu,bg="yellow")
     saglabat_btn.pack(pady=10)
@@ -59,7 +62,7 @@ def meklēt_laukumu():
     logs.title("Meklēt Gridas laukumu")
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
-
+    
     tk.Label(logs, text="Platumu:",bg="#6F5100").pack()
     platums_entry = tk.Entry(logs)
     platums_entry.pack()
