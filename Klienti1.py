@@ -78,7 +78,7 @@ def meklēt_klientu():
     vards_entry = tk.Entry(logs)
     vards_entry.pack()
 
-    meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_klientu,bg="#6F5100")
+    meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_klientu,bg="yellow")
     meklēt_btn.pack(pady=10)
 
 
@@ -97,7 +97,7 @@ def dzēst_klientu():
     logs.title("Dzēst Klientu")
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
-    tk.Label(logs, text="Klienta ID:").pack()
+    tk.Label(logs, text="Klienta ID:",bg="#6F5100").pack()
     id_klientu_entry = tk.Entry(logs)
     id_klientu_entry.pack()
 

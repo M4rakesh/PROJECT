@@ -9,7 +9,7 @@ def show_info():
     def show_infoo():
         id_info =id_info_entry.get()
         if id_info:
-            cursor.execute("SELECT * FROM Info INNER JOIN Klients ON Info.id_klients= Klients.id_klients INNER JOIN Laukums ON Info.id_lauk= Laukums.id_lauk INNER JOIN Material ON Info.id_mater= Material.id_mater WHERE Info.id_info LIKE ? ", (f"%{id_info}%",) )    
+            cursor.execute("SELECT * FROM Info INNER JOIN Klients ON Klients.id_klients= Info.id_klients INNER JOIN Laukums ON Laukums.id_lauk= Info.id_lauk INNER JOIN Material ON Info.id_mater= Material.id_mater WHERE Info.id_info LIKE ? ", (f"%{id_info}%",) )    
             rezultati = cursor.fetchall()
             if rezultati:
                 rezultati_str = ""
@@ -37,5 +37,5 @@ def info_logs():
     info_logs.geometry(f"300x250+{int((info_logs.winfo_screenwidth())/2)-150}+{int((info_logs.winfo_screenheight())/2)-125}")
     info_logs.configure(bg="#6F5100")
 
-    radit_btn = tk.Button(info_logs, text="Pievienot klientu", command=show_info, width=25, height=2, bg="#FFE86E",activebackground="yellow")
+    radit_btn = tk.Button(info_logs, text="Atrast info", command=show_info, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     radit_btn.pack(pady=10)

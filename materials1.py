@@ -98,14 +98,9 @@ def meklēt_materialu():
 
     mater_list()
 
-    tk.Label(logs,text="Materials1").pack()
+    tk.Label(logs,text="Materials1",bg="#6F5100").pack()
     mater_combobox = ttk.Combobox(logs,width=20,state="readonly",values= materials)
     mater_combobox.pack()
-
-
-    tk.Label(logs,text="Materials").pack()
-    mater_combobox1 = tk.Entry(logs)
-    mater_combobox1.pack()
 
     meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_materialu,bg="yellow")
     meklēt_btn.pack(pady=10)
