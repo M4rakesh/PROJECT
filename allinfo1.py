@@ -1,11 +1,12 @@
 import sqlite3
 import tkinter as tk
 from tkinter import messagebox
+#from kalendar import kalendar_logs
 
 conn = sqlite3.connect('grida.db')
 cursor = conn.cursor()
 
-def show_info():
+def kalendars():
     def show_infoo():
         id_info =id_info_entry.get()
         if id_info:
@@ -25,6 +26,10 @@ def show_info():
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
 
+    tk.Label(logs, text=" kalendars",bg="#6F5100").pack()
+    id_info_entry = tk.Entry(logs)
+    id_info_entry.pack()
+    
     tk.Label(logs, text=" id:",bg="#6F5100").pack()
     id_info_entry = tk.Entry(logs)
     id_info_entry.pack()
@@ -37,5 +42,5 @@ def info_logs():
     info_logs.geometry(f"300x250+{int((info_logs.winfo_screenwidth())/2)-150}+{int((info_logs.winfo_screenheight())/2)-125}")
     info_logs.configure(bg="#6F5100")
 
-    radit_btn = tk.Button(info_logs, text="Atrast info", command=show_info, width=25, height=2, bg="#FFE86E",activebackground="yellow")
+    radit_btn = tk.Button(info_logs, text="Atrast info", command=kalendars, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     radit_btn.pack(pady=10)
