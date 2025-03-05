@@ -55,7 +55,7 @@ def meklēt_materialu():
         global materials
         conn= sqlite3.connect('grida.db')
         cursor=conn.cursor()
-        cursor.execute("SELECT platums FROM Material")
+        cursor.execute("SELECT mater_veids FROM Material GROUP BY mater_veids")
         materials = []
         mater_all=cursor.fetchall()
         for mater in mater_all:
@@ -66,9 +66,10 @@ def meklēt_materialu():
 #logs kur var atrasts materialu pēc platuma un materiala veida
     def atrast_materialu():
         platums = platums_entry.get()
-        
+        mater_veids = mater_combobox.get()
+        print(mater_veids)
         if platums:
-            cursor.execute("SELECT * FROM Material WHERE platums and mater_veids LIKE ?", (f"%{platums}%"))
+            cursor.execute("SELECT platums,mater_veids FROM Material WHERE platums LIKE ? and mater_veids LIKE ?", (f"%{platums}%",f"%{mater_veids}%"))
             rezultati = cursor.fetchall()
             if rezultati:
                 rezultati_str = ""
