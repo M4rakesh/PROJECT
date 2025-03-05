@@ -8,7 +8,7 @@ from allinfo1 import info_logs
 from info1 import pasutijuma_logs
 
 
-
+#galvenais logs ar pogam
 def izveidot_galveno_logu():
     def klienti_poga():
         klientu_logs()
@@ -25,7 +25,7 @@ def izveidot_galveno_logu():
     def pasutijuma_poga():
         pasutijuma_logs()
         #Tas ir pogas, kuras atver jaunu logu ar izveleto darbibu(klients,gridas laukums vai materials)
-
+    
     logs = tk.Tk()
     logs.title("GLR")
     logs.geometry(f"300x300+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-150}")

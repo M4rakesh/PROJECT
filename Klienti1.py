@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 conn = sqlite3.connect('grida.db')
 cursor = conn.cursor()
-
+#logs kur var pievinot klientu
 def pievienot_klientu():
     def saglabat_klientu():
         vards = vards_entry.get()
@@ -52,7 +52,7 @@ def pievienot_klientu():
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_klientu,bg="yellow")
     saglabat_btn.pack(pady=10)
 
-
+#logs kur var atrast informaciju par klientu
 def meklēt_klientu():
     def atrast_klientu():
         vards = vards_entry.get()
@@ -81,7 +81,7 @@ def meklēt_klientu():
     meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_klientu,bg="yellow")
     meklēt_btn.pack(pady=10)
 
-
+#logs kur var nodzēst informaciju par klientu
 def dzēst_klientu():
     def dzēst_klientu_no_db():
         id_klientu = id_klientu_entry.get()
@@ -112,13 +112,13 @@ def klientu_logs():
     klientu_logs.configure(bg="#6F5100")
 
     pievienot_btn = tk.Button(klientu_logs, text="Pievienot klientu", command=pievienot_klientu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
-    pievienot_btn.pack(pady=10)
+    pievienot_btn.pack(pady=10)#poga aktivize pievinot klientu logu
 
     meklēt_btn = tk.Button(klientu_logs, text="Meklēt klientu", command=meklēt_klientu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
-    meklēt_btn.pack(pady=10)
+    meklēt_btn.pack(pady=10)#poga aktivize mēklet klientu logu
 
     dzēst_btn = tk.Button(klientu_logs, text="Dzēst klientu", command=dzēst_klientu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
-    dzēst_btn.pack(pady=10)
+    dzēst_btn.pack(pady=10)#poga aktivize nodzēst klientu logu
 
     iziet_btn = tk.Button(klientu_logs, text="Iziet", command=klientu_logs.destroy, width=25, height=2, bg="#FFE86E",activebackground="yellow")
-    iziet_btn.pack(pady=10)
+    iziet_btn.pack(pady=10)#poga iziet no klientu loga

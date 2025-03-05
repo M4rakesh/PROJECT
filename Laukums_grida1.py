@@ -4,7 +4,7 @@ from tkinter import messagebox
 
 conn = sqlite3.connect('grida.db')
 cursor = conn.cursor()
-
+#logs kur var pievinot jauno gridas laukumu ievadit tieši platumu un garumu
 def pievienot_laukumu():
     def saglabat_laukumu():
         platums = platums_entry.get()
@@ -41,7 +41,7 @@ def pievienot_laukumu():
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_laukumu,bg="yellow")
     saglabat_btn.pack(pady=10)
 
-
+#logs kur var gridas laukumu atrast pec gridas platuma 
 def meklēt_laukumu():
     def atrast_laukumu():
         platums = platums_entry.get()
@@ -70,7 +70,7 @@ def meklēt_laukumu():
     meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_laukumu,bg="yellow")
     meklēt_btn.pack(pady=10)
 
-
+#logs kur var nodzēst informaciju par gridas laukumu
 def dzēst_laukumu():
     def dzēst_laukumu_no_db():
         id_lauk = id_lauk_entry.get()
@@ -102,13 +102,13 @@ def laukums_logs():
     laukums_logs.configure(bg="#6F5100")
 
     pievienot_btn = tk.Button(laukums_logs, text="Pievienot gridas laukumu", command=pievienot_laukumu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
-    pievienot_btn.pack(pady=10)
+    pievienot_btn.pack(pady=10)#poga aktivize laukuma pievienošānas logu
 
     meklēt_btn = tk.Button(laukums_logs, text="Meklēt gridas laukumu", command=meklēt_laukumu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
-    meklēt_btn.pack(pady=10)
+    meklēt_btn.pack(pady=10)#poga aktivize laukuma mēklešanas logu
 
     dzēst_btn = tk.Button(laukums_logs, text="Dzēst gridas laukumu", command=dzēst_laukumu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
-    dzēst_btn.pack(pady=10)
+    dzēst_btn.pack(pady=10)#poga aktivize laukuma dzēšānas logu
 
     iziet_btn = tk.Button(laukums_logs, text="Iziet", command=laukums_logs.destroy, width=25, height=2, bg="#FFE86E",activebackground="yellow")
-    iziet_btn.pack(pady=10)
+    iziet_btn.pack(pady=10)#poga iziet no loga par laukumu
