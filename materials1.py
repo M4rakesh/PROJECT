@@ -68,13 +68,17 @@ def meklēt_materialu():
         platums = platums_entry.get()
         mater_veids = mater_combobox.get()
         print(mater_veids)
-        if platums:
-            cursor.execute("SELECT platums,mater_veids FROM Material WHERE platums LIKE ? and mater_veids LIKE ?", (f"%{platums}%",f"%{mater_veids}%"))
+        if platums and mater_veids:
+            print(platums)
+            conn= sqlite3.connect('grida.db')
+            cursor=conn.cursor()
+            cursor.execute("SELECT * FROM Material WHERE platums LIKE ? and mater_veids LIKE ?", (f"%{platums}%",f"%{mater_veids}%"))
+            print("sa")
             rezultati = cursor.fetchall()
             if rezultati:
                 rezultati_str = ""
                 for r in rezultati:
-                    rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}\n"
+                    rezultati_str += f"{r[0]}: {r[1]}, {r[2]}, {r[3]}\n"
                     messagebox.showinfo("Rezultāti", f"{r[0]}: platums: {r[1]} garums: {r[2]}, Laukums: {r[3]}\n")
             else:
                 messagebox.showinfo("Rezultāti", "Netika atrasts neviens gridas laukums.")
@@ -84,7 +88,7 @@ def meklēt_materialu():
             cursor.execute("SELECT id_mater FROM Material WHERE mater_veids LIKE ?", (materi,),)
             rezultati = cursor.fetchall()
         else:
-            messagebox.showerror("Kļūda", "Lūdzu, ievadiet klienta vārdu!")
+            messagebox.showerror("Kļūda", "Lūdzu, ievadiet platumu!")
 
     logs = tk.Toplevel()
     logs.title("Meklēt Materialu")#tas ir poga ar kuru izkas funkcija materialu mēklešāna
