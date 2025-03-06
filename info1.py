@@ -8,6 +8,18 @@ conn = sqlite3.connect('grida.db')
 cursor = conn.cursor()
 
 def savienot_informaciju():
+    def list_mater():
+        global materials
+        conn= sqlite3.connect('grida.db')
+        cursor=conn.cursor()
+        cursor.execute("SELECT id_mater FROM Material")
+        materials = []
+        mater_all=cursor.fetchall()
+        for mater in mater_all:
+            materials.append(mater[0])
+        print(materials)
+        conn.close()
+        conn.close()
     def saglabat_informaciju():
         id_mater = id_mater_combobox.get()
         id_klients = id_klients_combobox.get()
@@ -15,6 +27,7 @@ def savienot_informaciju():
         mater_daudzums = mater_daudzums_combobox.get()
         kopcena = kopcena_combobox.get()
         #datums = datums_combobox.get()
+    
 
         if id_mater and id_klients and id_lauk and kopcena:
             cursor.execute(
@@ -28,11 +41,11 @@ def savienot_informaciju():
 
     logs = tk.Toplevel()
     logs.title("Pievienot pasutijumu")
-    logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
+    logs.geometry(f"300x300+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-150}")
     logs.configure(bg="#6F5100")
 
     tk.Label(logs, text="Id_meteriala:",bg="#6F5100").pack()
-    id_mater_combobox = ttk.Combobox(logs,width=20,state="readonly",)
+    id_mater_combobox = ttk.Combobox(logs,width=20,state="readonly",value=materials)
     id_mater_combobox.pack()
 
     tk.Label(logs, text="id_klienta:",bg="#6F5100").pack()
@@ -57,7 +70,7 @@ def savienot_informaciju():
 def pasutijuma_logs():
     pasutijuma_logs = tk.Toplevel()
     pasutijuma_logs.title("Klientu pārvaldība")
-    pasutijuma_logs.geometry(f"300x250+{int((pasutijuma_logs.winfo_screenwidth())/2)-150}+{int((pasutijuma_logs.winfo_screenheight())/2)-125}")
+    pasutijuma_logs.geometry(f"300x300+{int((pasutijuma_logs.winfo_screenwidth())/2)-150}+{int((pasutijuma_logs.winfo_screenheight())/2)-150}")
     pasutijuma_logs.configure(bg="#6F5100")
 
     pievienot_btn = tk.Button(pasutijuma_logs, text="Pievienot materialu", command=savienot_informaciju, width=25, height=2, bg="#FFE86E",activebackground="yellow")
