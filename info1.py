@@ -9,7 +9,7 @@ cursor = conn.cursor()
 
 def savienot_informaciju():
     def list_mater():
-        global materials
+        global materials,kliientu
         conn= sqlite3.connect('grida.db')
         cursor=conn.cursor()
         cursor.execute("SELECT id_mater FROM Material")
@@ -18,6 +18,12 @@ def savienot_informaciju():
         for mater in mater_all:
             materials.append(mater[0])
         print(materials)
+        cursor.execute("SELECT id_klients FROM Klients")
+        kliientu=[]
+        klie_all=cursor.fetchall()
+        for klie in klie_all:
+            kliientu.append(klie[0])
+        print(kliientu)
         conn.close()
         conn.close()
     def saglabat_informaciju():

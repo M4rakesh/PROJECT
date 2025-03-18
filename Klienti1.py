@@ -1,6 +1,7 @@
 import sqlite3
 import tkinter as tk
 from tkinter import messagebox
+import re
 
 conn = sqlite3.connect('grida.db')
 cursor = conn.cursor()
@@ -11,26 +12,35 @@ def pievienot_klientu():
         uzvards = uzvards_entry.get()             
         tel_nr = tel_nr_entry.get()
 
-        if vards and uzvards and tel_nr.isdigit():
-                if vards and uzvards:
-                    cursor.execute("SELECT vards,uzvards FROM Klients WHERE vards LIKE ? and uzvards LIKE ?", (f"%{vards}%",f"%{uzvards}%"))
-                    rezultati = cursor.fetchall()
-                    if rezultati:
-                        rezultati_str = ""
-                        for r in rezultati:
-                            rezultati_str += f"{r[0]}: {r[1]} \n"
-                            messagebox.showinfo("Rezultāts", f"{r[0]} {r[1]}, klientu ekseste sistema!")
-                            
-                    else:
-                        cursor.execute(
-                            "INSERT INTO Klients (vards, uzvards, tel_nr) VALUES (?, ?, ?)",
-                            (vards, uzvards, tel_nr)
-                        )
-                        conn.commit()
-                        messagebox.showinfo("Veiksmīgi", "klientu pievienots!")
-                        logs.destroy()
+        pattern = r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
+
+    
+        if not re.match(pattern, vards,uzvards):
+            messagebox.showinfo("Rezultāts", "Vards nav derīga!")
+
         else:
-                    messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
+           
+            
+            if vards and uzvards and tel_nr.isdigit():
+                    if vards and uzvards:
+                        cursor.execute("SELECT vards,uzvards FROM Klients WHERE vards LIKE ? and uzvards LIKE ?", (f"%{vards}%",f"%{uzvards}%"))
+                        rezultati = cursor.fetchall()
+                        if rezultati:
+                            rezultati_str = ""
+                            for r in rezultati:
+                                rezultati_str += f"{r[0]}: {r[1]} \n"
+                                messagebox.showinfo("Rezultāts", f"{r[0]} {r[1]}, klientu ekseste sistema!")
+                                
+                        else:
+                            cursor.execute(
+                                "INSERT INTO Klients (vards, uzvards, tel_nr) VALUES (?, ?, ?)",
+                                (vards, uzvards, tel_nr)
+                            )
+                            conn.commit()
+                            messagebox.showinfo("Veiksmīgi", "klientu pievienots!")
+                            logs.destroy()
+            else:
+                        messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
 
     logs = tk.Toplevel()
     logs.title("Pievienot Klientu")
