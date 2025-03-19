@@ -6,42 +6,45 @@ import re
 conn = sqlite3.connect('grida.db')
 cursor = conn.cursor()
 #logs kur var pievinot klientu
+
 def pievienot_klientu():
     def saglabat_klientu():
-        vards = vards_entry.get()
-        uzvards = uzvards_entry.get()             
-        tel_nr = tel_nr_entry.get()
+        try:
+            vards = vards_entry.get()
+            uzvards = uzvards_entry.get()             
+            tel_nr = tel_nr_entry.get()
 
-        pattern = r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
+            pattern = r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
 
-    
-        if not re.match(pattern, vards,uzvards):
-            messagebox.showinfo("Rezultāts", "Vards nav derīga!")
+        
+            if not re.match(pattern, vards):
+                messagebox.showinfo("Rezultāts", "Vards nav derīga!")
 
-        else:
-           
-            
-            if vards and uzvards and tel_nr.isdigit():
-                    if vards and uzvards:
-                        cursor.execute("SELECT vards,uzvards FROM Klients WHERE vards LIKE ? and uzvards LIKE ?", (f"%{vards}%",f"%{uzvards}%"))
-                        rezultati = cursor.fetchall()
-                        if rezultati:
-                            rezultati_str = ""
-                            for r in rezultati:
-                                rezultati_str += f"{r[0]}: {r[1]} \n"
-                                messagebox.showinfo("Rezultāts", f"{r[0]} {r[1]}, klientu ekseste sistema!")
-                                
-                        else:
-                            cursor.execute(
-                                "INSERT INTO Klients (vards, uzvards, tel_nr) VALUES (?, ?, ?)",
-                                (vards, uzvards, tel_nr)
-                            )
-                            conn.commit()
-                            messagebox.showinfo("Veiksmīgi", "klientu pievienots!")
-                            logs.destroy()
             else:
-                        messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
-
+            
+                
+                if vards and uzvards and tel_nr.isdigit():
+                        if vards and uzvards:
+                            cursor.execute("SELECT vards,uzvards FROM Klients WHERE vards LIKE ? and uzvards LIKE ?", (f"%{vards}%",f"%{uzvards}%"))
+                            rezultati = cursor.fetchall()
+                            if rezultati:
+                                rezultati_str = ""
+                                for r in rezultati:
+                                    rezultati_str += f"{r[0]}: {r[1]} \n"
+                                    messagebox.showinfo("Rezultāts", f"{r[0]} {r[1]}, klientu ekseste sistema!")
+                                    
+                            else:
+                                cursor.execute(
+                                    "INSERT INTO Klients (vards, uzvards, tel_nr) VALUES (?, ?, ?)",
+                                    (vards, uzvards, tel_nr)
+                                )
+                                conn.commit()
+                                messagebox.showinfo("Veiksmīgi", "klientu pievienots!")
+                                logs.destroy()
+                else:
+                            messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
+        except:
+            print("error.")
     logs = tk.Toplevel()
     logs.title("Pievienot Klientu")
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
@@ -66,18 +69,26 @@ def pievienot_klientu():
 def meklēt_klientu():
     def atrast_klientu():
         vards = vards_entry.get()
-        if vards:
-            cursor.execute("SELECT * FROM Klients WHERE vards LIKE ?", (f"%{vards}%",))
-            rezultati = cursor.fetchall()
-            if rezultati:
-                rezultati_str = ""
-                for r in rezultati:
-                    rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}\n"
-                    messagebox.showinfo("Rezultāti", f"{r[0]}: Vards: {r[1]} Uzvards: {r[2]}, Talrunis: {r[3]}\n")
-            else:
-                messagebox.showinfo("Rezultāti", "Netika atrasts neviens Klients.")
+
+        pattern = r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
+
+    
+        if not re.match(pattern, vards):
+            messagebox.showinfo("Rezultāts", "Vards nav derīga!")
+
         else:
-            messagebox.showerror("Kļūda", "Lūdzu, ievadiet klienta vārdu!")
+            if vards:
+                cursor.execute("SELECT * FROM Klients WHERE vards LIKE ?", (f"%{vards}%",))
+                rezultati = cursor.fetchall()
+                if rezultati:
+                    rezultati_str = ""
+                    for r in rezultati:
+                        rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}\n"
+                        messagebox.showinfo("Rezultāti", f"{r[0]}: Vards: {r[1]} Uzvards: {r[2]}, Talrunis: {r[3]}\n")
+                else:
+                    messagebox.showinfo("Rezultāti", "Netika atrasts neviens Klients.")
+            else:
+                messagebox.showerror("Kļūda", "Lūdzu, ievadiet klienta vārdu!")
 
     logs = tk.Toplevel()
     logs.title("Meklēt Klientu")

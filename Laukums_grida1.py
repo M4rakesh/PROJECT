@@ -10,7 +10,7 @@ def pievienot_laukumu():
         platums = platums_entry.get()
         garums = garums_entry.get()             
         
-
+    
         if platums and garums:
             cursor.execute(
                 "INSERT INTO Laukums (platums,garums,laukums) VALUES (?, ?, ?)",

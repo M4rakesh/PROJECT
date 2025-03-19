@@ -7,17 +7,17 @@ from tkinter import messagebox,ttk
 conn = sqlite3.connect('grida.db')
 cursor = conn.cursor()
 
-def savienot_informaciju():
+def savieno_informaciju():
     def list_mater():
-        global materials,kliientu
+        global telefon
         conn= sqlite3.connect('grida.db')
         cursor=conn.cursor()
-        cursor.execute("SELECT id_mater FROM Material")
-        materials = []
-        mater_all=cursor.fetchall()
-        for mater in mater_all:
-            materials.append(mater[0])
-        print(materials)
+        cursor.execute("SELECT tel_nr FROM Klients")
+        telefon = []
+        tel_all=cursor.fetchall()
+        for tel in tel_all:
+            telefon.append(tel[0])
+        print(telefon)
         cursor.execute("SELECT id_klients FROM Klients")
         kliientu=[]
         klie_all=cursor.fetchall()
@@ -26,19 +26,21 @@ def savienot_informaciju():
         print(kliientu)
         conn.close()
         conn.close()
+        
     def saglabat_informaciju():
-        id_mater = id_mater_combobox.get()
-        id_klients = id_klients_combobox.get()
-        id_lauk = id_lauk_combobox.get()
-        mater_daudzums = mater_daudzums_combobox.get()
-        kopcena = kopcena_combobox.get()
+        #id_mater = id_mater_combobox.get()
+        #id_klients = id_klients_combobox.get()
+        #id_lauk = id_lauk_combobox.get()
+        #mater_daudzums = mater_daudzums_combobox.get()
+        #kopcena = kopcena_combobox.get()
+        tel_nr = tel_nr_combobox.get()
         #datums = datums_combobox.get()
     
 
-        if id_mater and id_klients and id_lauk and kopcena:
+        if tel_nr:
             cursor.execute(
-                "INSERT INTO INFO (id_info,id_mater,id_klients,id_lauk,mater_daudzums,kopcena,datums) VALUES (?,?,?,?,?)",
-                (id_mater,id_klients,id_lauk,mater_daudzums,kopcena,))
+                "INSERT INTO Klients (tel_nr) VALUES (?)",
+                (tel_nr))
             conn.commit()
             messagebox.showinfo("Veiksmīgi", "pasutijuma pievienots!")
             logs.destroy()
@@ -51,14 +53,18 @@ def savienot_informaciju():
     logs.configure(bg="#6F5100")
 
     tk.Label(logs, text="Id_meteriala:",bg="#6F5100").pack()
-    id_mater_combobox = ttk.Combobox(logs,width=20,state="readonly",value=materials)
-    id_mater_combobox.pack()
+   # id_mater_combobox = ttk.Combobox(logs,width=20,state="readonly",value=materials)
+   #id_mater_combobox.pack()
+    list_mater()
+    tk.Label(logs, text="telefon:",bg="#6F5100").pack()
+    tel_nr_combobox = ttk.Combobox(logs,width=20,state="readonly",value=telefon)
+    tel_nr_combobox.pack()
 
-    tk.Label(logs, text="id_klienta:",bg="#6F5100").pack()
+    tk.Label(logs, text="vārds:",bg="#6F5100").pack()
     id_klients_combobox = ttk.Combobox(logs,width=20,state="readonly",)
     id_klients_combobox.pack()
 
-    tk.Label(logs, text="id_laukuma",bg="#6F5100").pack()
+    tk.Label(logs, text="uzvārds",bg="#6F5100").pack()
     id_lauk_combobox = ttk.Combobox(logs,width=20,state="readonly",)
     id_lauk_combobox.pack()
 
@@ -79,7 +85,7 @@ def pasutijuma_logs():
     pasutijuma_logs.geometry(f"300x300+{int((pasutijuma_logs.winfo_screenwidth())/2)-150}+{int((pasutijuma_logs.winfo_screenheight())/2)-150}")
     pasutijuma_logs.configure(bg="#6F5100")
 
-    pievienot_btn = tk.Button(pasutijuma_logs, text="Pievienot materialu", command=savienot_informaciju, width=25, height=2, bg="#FFE86E",activebackground="yellow")
+    pievienot_btn = tk.Button(pasutijuma_logs, text="Pievienot materialu", command=savieno_informaciju, width=25, height=2, bg="#FFE86E",activebackground="yellow")
     pievienot_btn.pack(pady=10)
 
     '''meklēt_btn = tk.Button(pasutijuma_logs, text="Meklēt materialu", command=meklēt_materialu, width=25, height=2, bg="#FFE86E",activebackground="yellow")
