@@ -12,22 +12,29 @@ def savieno_informaciju():
         global telefon
         conn= sqlite3.connect('grida.db')
         cursor=conn.cursor()
-        cursor.execute("SELECT tel_nr FROM Klients")
+       # cursor.execute("SELECT * FROM Klients")
         telefon = []
         tel_all=cursor.fetchall()
+        text=ttk.Label(logs,text=f"Vārds:{tel_all[1]}\nUzvārds{tel_all[2]}")
+        text.place(x=150,y=150)
         for tel in tel_all:
             telefon.append(tel[0])
         print(telefon)
-        cursor.execute("SELECT id_klients FROM Klients")
-        kliientu=[]
-        klie_all=cursor.fetchall()
-        for klie in klie_all:
-            kliientu.append(klie[0])
-        print(kliientu)
+       
         conn.close()
-        conn.close()
-        
-    def saglabat_informaciju():
+
+    def saglabat_info():
+        global telefon
+        conn= sqlite3.connect('grida.db')
+        cursor=conn.cursor()
+        cursor.execute("SELECT * FROM Klients WHERE tel_nr = ?",(tel_nr))
+        telefon = []
+        tel_all=cursor.fetchall()
+        text=ttk.Label(logs,text=f"Vārds:{tel_all[1]}\nUzvārds{tel_all[2]}")
+        text.place(x=150,y=150)
+        for tel in tel_all:
+            telefon.append(tel[0])
+        print(telefon)
         #id_mater = id_mater_combobox.get()
         #id_klients = id_klients_combobox.get()
         #id_lauk = id_lauk_combobox.get()
@@ -41,6 +48,8 @@ def savieno_informaciju():
             cursor.execute(
                 "INSERT INTO Klients (tel_nr) VALUES (?)",
                 (tel_nr))
+            
+            
             conn.commit()
             messagebox.showinfo("Veiksmīgi", "pasutijuma pievienots!")
             logs.destroy()
@@ -76,7 +85,7 @@ def savieno_informaciju():
     kopcena_combobox = ttk.Combobox(logs,width=20,state="readonly",)
     kopcena_combobox.pack()
 
-    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_informaciju,bg="yellow")
+    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_info,bg="yellow")
     saglabat_btn.pack(pady=10)
     
 def pasutijuma_logs():

@@ -15,11 +15,12 @@ def pievienot_klientu():
             tel_nr = tel_nr_entry.get()
 
             pattern = r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
-
+            pattern2 = r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
         
             if not re.match(pattern, vards):
                 messagebox.showinfo("Rezultāts", "Vards nav derīga!")
-
+            if not re.match(pattern2, uzvards):
+                messagebox.showinfo("Rezultāts", "Vards nav derīga!")
             else:
             
                 
