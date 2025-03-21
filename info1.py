@@ -9,35 +9,54 @@ cursor = conn.cursor()
 
 def savieno_informaciju():
     def list_mater():
-        global telefon
+        global telefon1,laukums1
         conn= sqlite3.connect('grida.db')
         cursor=conn.cursor()
-       # cursor.execute("SELECT * FROM Klients")
-        telefon = []
+        cursor.execute("SELECT * FROM Klients")
+        telefon1 = []
         tel_all=cursor.fetchall()
-        text=ttk.Label(logs,text=f"Vārds:{tel_all[1]}\nUzvārds{tel_all[2]}")
-        text.place(x=150,y=150)
+        print(tel_all)
         for tel in tel_all:
-            telefon.append(tel[0])
-        print(telefon)
-       
+            telefon1.append(tel[3])
+            print(tel[3])
+        print(telefon1)
+        cursor.execute("SELECT * FROM Laukums")
+        laukums1=[]
+        lauk_all=cursor.fetchall()
+        print(lauk_all)
+        
+        for lauk in lauk_all:
+            laukums1.append(lauk[3])
+            print(lauk[3])
+        print(laukums1)
+    
         conn.close()
 
     def saglabat_info():
-        global telefon
+        global telefon,laukums
         conn= sqlite3.connect('grida.db')
         cursor=conn.cursor()
-        cursor.execute("SELECT * FROM Klients WHERE tel_nr = ?",(tel_nr))
+        cursor.execute("SELECT * FROM Klients WHERE tel_nr = ?",(tel_nr_combobox))
         telefon = []
         tel_all=cursor.fetchall()
-        text=ttk.Label(logs,text=f"Vārds:{tel_all[1]}\nUzvārds{tel_all[2]}")
-        text.place(x=150,y=150)
+        
         for tel in tel_all:
             telefon.append(tel[0])
+            print(tel[0])
         print(telefon)
+        cursor.execute("SELECT * FROM Laukums WHERE platums = ?")
+        laukums=[]
+        lauk_all=cursor.fetchall()
+        print(lauk_all)
+        
+        for lauk in lauk_all:
+            laukums.append(lauk[3])
+            print(lauk[3])
+        print(laukums)
+    
         #id_mater = id_mater_combobox.get()
         #id_klients = id_klients_combobox.get()
-        #id_lauk = id_lauk_combobox.get()
+        platums = platums_combobox.get()
         #mater_daudzums = mater_daudzums_combobox.get()
         #kopcena = kopcena_combobox.get()
         tel_nr = tel_nr_combobox.get()
@@ -48,6 +67,18 @@ def savieno_informaciju():
             cursor.execute(
                 "INSERT INTO Klients (tel_nr) VALUES (?)",
                 (tel_nr))
+            text=ttk.Label(logs,text=f"Vārds:{tel_all[1]}\nUzvārds{tel_all[2]}")
+            text.place(x=150,y=150)
+            
+            conn.commit()
+            messagebox.showinfo("Veiksmīgi", "pasutijuma pievienots!")
+            logs.destroy()
+        else:
+            messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
+        if platums:
+            cursor.execute(
+                "INSERT INTO Laukums (platums) VALUES (?)",
+                (platums))
             
             
             conn.commit()
@@ -66,22 +97,22 @@ def savieno_informaciju():
    #id_mater_combobox.pack()
     list_mater()
     tk.Label(logs, text="telefon:",bg="#6F5100").pack()
-    tel_nr_combobox = ttk.Combobox(logs,width=20,state="readonly",value=telefon)
+    tel_nr_combobox = ttk.Combobox(logs,width=20,state="readonly",value=telefon1)
     tel_nr_combobox.pack()
 
-    tk.Label(logs, text="vārds:",bg="#6F5100").pack()
+    #tk.Label(logs, text="vārds:",bg="#6F5100").pack()
     id_klients_combobox = ttk.Combobox(logs,width=20,state="readonly",)
     id_klients_combobox.pack()
 
-    tk.Label(logs, text="uzvārds",bg="#6F5100").pack()
-    id_lauk_combobox = ttk.Combobox(logs,width=20,state="readonly",)
-    id_lauk_combobox.pack()
+    #tk.Label(logs, text="uzvārds",bg="#6F5100").pack()
+    platums_combobox = ttk.Combobox(logs,width=20,state="readonly",value=laukums1)
+    platums_combobox.pack()
 
-    tk.Label(logs, text="materiala_daudzums",bg="#6F5100").pack()
+    #tk.Label(logs, text="materiala_daudzums",bg="#6F5100").pack()
     mater_daudzums_combobox = ttk.Combobox(logs,width=20,state="readonly",)
     mater_daudzums_combobox.pack()
 
-    tk.Label(logs, text="kopcena",bg="#6F5100").pack()
+    #tk.Label(logs, text="kopcena",bg="#6F5100").pack()
     kopcena_combobox = ttk.Combobox(logs,width=20,state="readonly",)
     kopcena_combobox.pack()
 
