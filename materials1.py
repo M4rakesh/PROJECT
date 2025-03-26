@@ -51,6 +51,7 @@ def pievienot_materialu():
 
 #logs kur var atrasts materialu pēc platuma un materiala veida
 def meklēt_materialu():
+    print('hfhfghfgnfgh77777777777g')
     def mater_list():
         global materials
         conn= sqlite3.connect('grida.db')
@@ -58,9 +59,10 @@ def meklēt_materialu():
         cursor.execute("SELECT mater_veids FROM Material GROUP BY mater_veids")
         materials = []
         mater_all=cursor.fetchall()
+        print('hfhfghfgnfghg')
         for mater in mater_all:
             materials.append(mater[0])
-        print(materials)
+        print('Materials', materials)
         conn.close()
 
 #logs kur var atrasts materialu pēc platuma un materiala veida

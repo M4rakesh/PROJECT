@@ -92,7 +92,7 @@ def savieno_informaciju():
     logs.geometry(f"300x300+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-150}")
     logs.configure(bg="#6F5100")
 
-    tk.Label(logs, text="Id_meteriala:",bg="#6F5100").pack()
+    #tk.Label(logs, text="Id_meteriala:",bg="#6F5100").pack()
    # id_mater_combobox = ttk.Combobox(logs,width=20,state="readonly",value=materials)
    #id_mater_combobox.pack()
     list_mater()
