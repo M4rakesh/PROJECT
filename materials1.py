@@ -67,31 +67,33 @@ def meklēt_materialu():
 
 #logs kur var atrasts materialu pēc platuma un materiala veida
     def atrast_materialu():
-        platums = platums_entry.get()
-        mater_veids = mater_combobox.get()
-        print(mater_veids)
-        if platums and mater_veids:
-            print(platums)
-            conn= sqlite3.connect('grida.db')
-            cursor=conn.cursor()
-            cursor.execute("SELECT * FROM Material WHERE platums LIKE ? and mater_veids LIKE ?", (f"%{platums}%",f"%{mater_veids}%"))
-            print("sa")
-            rezultati = cursor.fetchall()
-            if rezultati:
-                rezultati_str = ""
-                for r in rezultati:
-                    rezultati_str += f"{r[0]}: {r[1]}, {r[2]}, {r[3]}\n"
-                    messagebox.showinfo("Rezultāti", f"{r[0]}: platums: {r[1]} garums: {r[2]}, Laukums: {r[3]}\n")
+        try:
+            platums = platums_entry.get()
+            mater_veids = mater_combobox.get()
+            print(mater_veids)
+            if platums and mater_veids:
+                print(platums)
+                conn= sqlite3.connect('grida.db')
+                cursor=conn.cursor()
+                cursor.execute("SELECT * FROM Material WHERE platums LIKE ? and mater_veids LIKE ?", (f"%{platums}%",f"%{mater_veids}%"))
+                print("sa")
+                rezultati = cursor.fetchall()
+                if rezultati:
+                    rezultati_str = ""
+                    for r in rezultati:
+                        rezultati_str += f"{r[0]}: {r[1]}, {r[2]}, {r[3]}\n"
+                        messagebox.showinfo("Rezultāti", f"{r[0]}: platums: {r[1]} garums: {r[2]}, Laukums: {r[3]}\n")
+                else:
+                    messagebox.showinfo("Rezultāti", "Netika atrasts neviens gridas laukums.")
+                materi = mater_combobox.get()
+                conn = sqlite3.connect('grida.db')
+                cursor = conn.cursor()
+                cursor.execute("SELECT id_mater FROM Material WHERE mater_veids LIKE ?", (materi,),)
+                rezultati = cursor.fetchall()
             else:
-                messagebox.showinfo("Rezultāti", "Netika atrasts neviens gridas laukums.")
-            materi = mater_combobox.get()
-            conn = sqlite3.connect('grida.db')
-            cursor = conn.cursor()
-            cursor.execute("SELECT id_mater FROM Material WHERE mater_veids LIKE ?", (materi,),)
-            rezultati = cursor.fetchall()
-        else:
-            messagebox.showerror("Kļūda", "Lūdzu, ievadiet platumu!")
-
+                messagebox.showerror("Kļūda", "Lūdzu, ievadiet platumu!")
+        except Exception as e:
+            messagebox.showerror("Kļuda!","Neizdevas atrast informaciju par materialu")
     logs = tk.Toplevel()
     logs.title("Meklēt Materialu")#tas ir poga ar kuru izkas funkcija materialu mēklešāna
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
@@ -116,7 +118,7 @@ def dzēst_materialu():
     def dzēst_materialu_no_db():
         id_mater = id_mater_entry.get()
         if id_mater.isdigit():
-            cursor.execute("DELETE FROM Material WHERE id_mater = ?", (id_mater))
+            cursor.execute("DELETE FROM Material WHERE id_mater = ?", (id_mater,))
             conn.commit()
             messagebox.showinfo("Veiksmīgi", f"Materilas ar ID {id_mater} tika izdzēsts!")
             logs.destroy()

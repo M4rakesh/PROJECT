@@ -5,7 +5,7 @@ from Klienti1 import klientu_logs
 from Laukums_grida1 import laukums_logs
 from materials1 import materials_logs
 from allinfo1 import info_logs
-from info1 import pasutijuma_logs
+from info2 import pasutijuma_logs
 
 
 #galvenais logs ar pogam

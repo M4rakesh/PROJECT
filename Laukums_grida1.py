@@ -7,21 +7,23 @@ cursor = conn.cursor()
 #logs kur var pievinot jauno gridas laukumu ievadit tieši platumu un garumu
 def pievienot_laukumu():
     def saglabat_laukumu():
-        platums = platums_entry.get()
-        garums = garums_entry.get()             
+        try:
+            platums = platums_entry.get()
+            garums = garums_entry.get()             
+            
         
-    
-        if platums and garums:
-            cursor.execute(
-                "INSERT INTO Laukums (platums,garums,laukums) VALUES (?, ?, ?)",
-                (float(platums),float(garums), (float(platums)*float(garums)))
-            )
-            conn.commit()
-            messagebox.showinfo("Veiksmīgi", "Laukums pievienots!")
-            logs.destroy()
-        else:
-            messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
-
+            if platums and garums:
+                cursor.execute(
+                    "INSERT INTO Laukums (platums,garums,laukums) VALUES (?, ?, ?)",
+                    (float(platums),float(garums), (float(platums)*float(garums)))
+                )
+                conn.commit()
+                messagebox.showinfo("Veiksmīgi", "Laukums pievienots!")
+                logs.destroy()
+            else:
+                messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
+        except Exception as e:
+            print("error!!!")
     logs = tk.Toplevel()
     logs.title("Pievienot Laukumu")
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")

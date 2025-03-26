@@ -16,11 +16,11 @@ def pievienot_klientu():
 
             pattern = r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
             pattern2 = r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
-        
+            
             if not re.match(pattern, vards):
                 messagebox.showinfo("Rezultāts", "Vards nav derīga!")
             if not re.match(pattern2, uzvards):
-                messagebox.showinfo("Rezultāts", "Vards nav derīga!")
+                messagebox.showinfo("Rezultāts", "Uzards nav derīga!")
             else:
             
                 
@@ -69,28 +69,30 @@ def pievienot_klientu():
 #logs kur var atrast informaciju par klientu
 def meklēt_klientu():
     def atrast_klientu():
-        vards = vards_entry.get()
+        try:
+            vards = vards_entry.get()
 
-        pattern = r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
+            pattern = r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
 
-    
-        if not re.match(pattern, vards):
-            messagebox.showinfo("Rezultāts", "Vards nav derīga!")
+        
+            if not re.match(pattern, vards):
+                messagebox.showinfo("Rezultāts", "Vards nav derīga!")
 
-        else:
-            if vards:
-                cursor.execute("SELECT * FROM Klients WHERE vards LIKE ?", (f"%{vards}%",))
-                rezultati = cursor.fetchall()
-                if rezultati:
-                    rezultati_str = ""
-                    for r in rezultati:
-                        rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}\n"
-                        messagebox.showinfo("Rezultāti", f"{r[0]}: Vards: {r[1]} Uzvards: {r[2]}, Talrunis: {r[3]}\n")
-                else:
-                    messagebox.showinfo("Rezultāti", "Netika atrasts neviens Klients.")
             else:
-                messagebox.showerror("Kļūda", "Lūdzu, ievadiet klienta vārdu!")
-
+                if vards:
+                    cursor.execute("SELECT * FROM Klients WHERE vards LIKE ?", (f"%{vards}%",))
+                    rezultati = cursor.fetchall()
+                    if rezultati:
+                        rezultati_str = ""
+                        for r in rezultati:
+                            rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}\n"
+                            messagebox.showinfo("Rezultāti", f"{r[0]}: Vards: {r[1]} Uzvards: {r[2]}, Talrunis: {r[3]}\n")
+                    else:
+                        messagebox.showinfo("Rezultāti", "Netika atrasts neviens Klients.")
+                else:
+                    messagebox.showerror("Kļūda", "Lūdzu, ievadiet klienta vārdu!")
+        except Exception as e:
+            print("error!!!")
     logs = tk.Toplevel()
     logs.title("Meklēt Klientu")
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
