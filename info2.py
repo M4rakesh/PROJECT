@@ -26,8 +26,8 @@ def savieno_informaciju():
         print(lauk_all)
         
         for lauk in lauk_all:
-            laukums1.append(lauk[3])
-            print(lauk[3])
+            laukums1.append(lauk[2])
+            print(lauk[2])
         print(laukums1)
     
         conn.close()
@@ -35,6 +35,7 @@ def savieno_informaciju():
     def saglabat_info():
         try:
             tel_nr = tel_nr_combobox.get()
+            
             if  not tel_nr:
                 messagebox.showwarning("Brīdinājums, lūdzu izvēlēties telefona numuru!")
                 return
@@ -47,6 +48,15 @@ def savieno_informaciju():
             conn.close()
             if tel_nr:
                     text=ttk.Label(logs,text=f"Vārds:{tel_all[1]}\nUzvārds{tel_all[2]}")
+                    text.place(x=150,y=150)
+            conn= sqlite3.connect('grida.db')
+            cursor=conn.cursor()
+            cursor.execute("SELECT * FROM Klients INNER JOIN Info ON Info.id_klients= Klients.id_klients INNER JOIN Material ON Info.id_mater= Material.id_mater WHERE tel_nr = ?",(tel_nr,))
+            lauk_all=cursor.fetchone()
+            print("asd",lauk_all[1],lauk_all[2],lauk_all[3],lauk_all[12])
+            conn.close()
+            if tel_nr:
+                    text=ttk.Label(logs,text=f"Vārds:{lauk_all[1]}\nUzvārds:{lauk_all[2]}\nTelefons:{lauk_all[3]}\nMaterials:{lauk_all[12]}")
                     text.place(x=150,y=150)
             else:
                 messagebox.showwarning("Brīdinājums, lūdzu izvēlēties telefona numuru!")
@@ -70,7 +80,7 @@ def savieno_informaciju():
     
 def pasutijuma_logs():
     pasutijuma_logs = tk.Toplevel()
-    pasutijuma_logs.title("Klientu pārvaldība")
+    pasutijuma_logs.title("Pasutijums")
     pasutijuma_logs.geometry(f"300x300+{int((pasutijuma_logs.winfo_screenwidth())/2)-150}+{int((pasutijuma_logs.winfo_screenheight())/2)-150}")
     pasutijuma_logs.configure(bg="#6F5100")
 
