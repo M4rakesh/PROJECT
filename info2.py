@@ -20,7 +20,9 @@ def savieno_informaciju():
             telefon1.append(tel[3])
             print(tel[3])
         print(telefon1)
-        cursor.execute("SELECT * FROM Laukums")
+
+        cursor.execute("SELECT * FROM Klients INNER JOIN Info ON Info.id_klients= Klients.id_klients INNER JOIN Material ON Material.id_mater= Info.id_mater WHERE Klients.tel_nr = ?")
+        #cursor.execute("SELECT * FROM Laukums")
         laukums1=[]
         lauk_all=cursor.fetchall()
         print(lauk_all)
@@ -41,6 +43,7 @@ def savieno_informaciju():
                 return
 
             global telefon,laukums
+            '''
             conn= sqlite3.connect('grida.db')
             cursor=conn.cursor()
             cursor.execute("SELECT * FROM Klients WHERE tel_nr = ?",(tel_nr,))
@@ -48,15 +51,19 @@ def savieno_informaciju():
             conn.close()
             if tel_nr:
                     text=ttk.Label(logs,text=f"Vārds:{tel_all[1]}\nUzvārds{tel_all[2]}")
-                    text.place(x=150,y=150)
+                    text.place(x=150,y=150)'
+                    '''
             conn= sqlite3.connect('grida.db')
             cursor=conn.cursor()
-            cursor.execute("SELECT * FROM Klients INNER JOIN Info ON Info.id_klients= Klients.id_klients INNER JOIN Material ON Info.id_mater= Material.id_mater WHERE tel_nr = ?",(tel_nr,))
+            #cursor.execute("SELECT * FROM Klients INNER JOIN Info ON Info.id_klients= Klients.id_klients WHERE tel_nr = ?",(tel_nr,))
+            cursor.execute("SELECT * FROM Klients INNER JOIN Info ON Info.id_klients= Klients.id_klients INNER JOIN Material ON Material.id_mater= Info.id_mater WHERE Klients.tel_nr = ?",(tel_nr,))
             lauk_all=cursor.fetchone()
+            print(lauk_all)
             print("asd",lauk_all[1],lauk_all[2],lauk_all[3],lauk_all[12])
             conn.close()
             if tel_nr:
                     text=ttk.Label(logs,text=f"Vārds:{lauk_all[1]}\nUzvārds:{lauk_all[2]}\nTelefons:{lauk_all[3]}\nMaterials:{lauk_all[12]}")
+                    #text=ttk.Label(logs,text=f"Vārds:{lauk_all[1]}\nUzvārds:{lauk_all[2]}\nTelefons:{lauk_all[3]}\n")
                     text.place(x=150,y=150)
             else:
                 messagebox.showwarning("Brīdinājums, lūdzu izvēlēties telefona numuru!")
@@ -74,6 +81,9 @@ def savieno_informaciju():
     tel_nr_combobox = ttk.Combobox(logs,width=20,state="readonly",value=telefon1)
     tel_nr_combobox.pack()
 
+    tk.Label(logs, text="Laukums:",bg="#6F5100").pack()
+    tel_nr_combobox = ttk.Combobox(logs,width=20,state="readonly",value=laukums1)
+    tel_nr_combobox.pack()
 
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_info,bg="yellow")
     saglabat_btn.pack(pady=10)
