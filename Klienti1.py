@@ -70,17 +70,17 @@ def pievienot_klientu():
 def meklēt_klientu():
     def atrast_klientu():
         try:
-            vards = vards_entry.get()
+            tel_nr = tel_nr_entry.get()
 
-            pattern = r'^[A-ZĀ-Ž][a-zā-ž]+$|^[A-ZĀ-Ž][a-zā-ž]+\s+[A-ZĀ-Ž]{1}[a-zā-ž]+$'
+            pattern = r'^[?=.*\d]{3,}$'
 
         
-            if not re.match(pattern, vards):
+            if not re.match(pattern, tel_nr):
                 messagebox.showinfo("Rezultāts", "Vards nav derīga!")
 
             else:
-                if vards:
-                    cursor.execute("SELECT * FROM Klients WHERE vards LIKE ?", (f"%{vards}%",))
+                if tel_nr:
+                    cursor.execute("SELECT * FROM Klients WHERE tel_nr LIKE ?", (f"%{tel_nr}%",))
                     rezultati = cursor.fetchall()
                     if rezultati:
                         rezultati_str = ""
@@ -92,15 +92,15 @@ def meklēt_klientu():
                 else:
                     messagebox.showerror("Kļūda", "Lūdzu, ievadiet klienta vārdu!")
         except Exception as e:
-            print("error!!!")
+            print(f"error!!!{e}")
     logs = tk.Toplevel()
     logs.title("Meklēt Klientu")
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
 
-    tk.Label(logs, text="Klienta vārds:",bg="#6F5100").pack()
-    vards_entry = tk.Entry(logs)
-    vards_entry.pack()
+    tk.Label(logs, text="Klienta telefons:",bg="#6F5100").pack()
+    tel_nr_entry = tk.Entry(logs)
+    tel_nr_entry.pack()
 
     meklēt_btn = tk.Button(logs, text="Meklēt", command=atrast_klientu,bg="yellow")
     meklēt_btn.pack(pady=10)

@@ -10,7 +10,8 @@ def visa_informacija():
     def show_infoo():
         id_info =id_info_entry.get()
         if id_info:
-            cursor.execute("SELECT * FROM Info INNER JOIN Klients ON Klients.id_klients= Info.id_klients INNER JOIN Laukums ON Laukums.id_lauk= Info.id_lauk INNER JOIN Material ON Info.id_mater= Material.id_mater WHERE Info.id_info LIKE ? ", (f"%{id_info}%",) )    
+            #cursor.execute("SELECT * FROM Info INNER JOIN Klients ON Klients.id_klients= Info.id_klients INNER JOIN Laukums ON Laukums.id_lauk= Info.id_lauk INNER JOIN Material ON Info.id_mater= Material.id_mater WHERE Info.id_info LIKE ? ", (f"%{id_info}%",) )    
+            cursor.execute("SELECT * FROM Klients WHERE id_klients LIKE ?",(id_info,))
             rezultati = cursor.fetchall()
             if rezultati:
                 rezultati_str = ""
