@@ -80,11 +80,11 @@ def savieno_informaciju():
 
             conn.close()
 
-            '''if mater_all:
+            if mater_all:
                     text=ttk.Label(logs,text=f"Platums:{mater_all[2]} Garums{mater_all[3]}")
                     text.place(x=150,y=150)
             else:
-                messagebox.showwarning("Brīdinājums, lūdzu izvēlēties telefona numuru!")'''
+                messagebox.showwarning("Brīdinājums, lūdzu izvēlēties telefona numuru!")
 
         except Exception as e:
             messagebox.showerror("Kļūda", f"Neizdevās parādīt informāciju: {e}")

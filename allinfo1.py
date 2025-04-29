@@ -55,6 +55,7 @@ def visa_informacija():
     tk.Label(logs, text=" id:",bg="#6F5100").pack()
     id_info_entry = tk.Entry(logs)
     id_info_entry.pack()
+
     meklēt_btn = tk.Button(logs, text="Meklēt", command=show_infoo,overrelief="ridge",bg="yellow")
     meklēt_btn.pack(pady=10)
 
