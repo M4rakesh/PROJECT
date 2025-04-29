@@ -40,8 +40,6 @@ def pievienot_laukumu():
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_laukumu,bg="yellow")
     saglabat_btn.pack(pady=10)
 
-    saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_laukumu,bg="yellow")
-    saglabat_btn.pack(pady=10)
 
 #logs kur var gridas laukumu atrast pec gridas platuma 
 def meklēt_laukumu():
