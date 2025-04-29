@@ -10,12 +10,12 @@ print("123")
 #logs kur izvada visu informaciju kur raksits par vārdu,laukumu,materilu
 def visa_informacija():
     print("12334")
-    tel_all=[1,2,3]
     def show_infoo():
         print("12335")
         id_info =id_info_entry.get()
         print("1233")
         if id_info:
+            
             #cursor.execute("SELECT * FROM Info INNER JOIN Klients ON Klients.id_klients= Info.id_klients INNER JOIN Laukums ON Laukums.id_lauk= Info.id_lauk INNER JOIN Material ON Info.id_mater= Material.id_mater WHERE Info.id_info LIKE ? ", (f"%{id_info}%",) )    
             cursor.execute("SELECT * FROM Klients WHERE id_klients LIKE ?",(id_info,))
             rezultati = cursor.fetchall()
@@ -30,7 +30,7 @@ def visa_informacija():
                             messagebox.showwarning("Brīdinājums, lūdzu izvēlēties telefona numuru!")
                             return
 
-                        global telefon,laukums, tel_all
+                        global telefon,laukums
                         conn= sqlite3.connect('grida.db')
                         cursor=conn.cursor()
                         cursor.execute("SELECT * FROM Klients WHERE tel_nr = ?",(mater_veids,))
@@ -54,7 +54,7 @@ def visa_informacija():
     logs.configure(bg="#6F5100")
     
     tk.Label(logs,text="Materials1",bg="#6F5100").pack()#tas ir materiala veidu izvelešana
-    mater_combobox = ttk.Combobox(logs,width=20,state="readonly",values= tel_all)
+    mater_combobox = ttk.Combobox(logs,width=20,state="readonly",values= mater_combobox)
     mater_combobox.pack()
 
     tk.Label(logs, text=" id:",bg="#6F5100").pack()
