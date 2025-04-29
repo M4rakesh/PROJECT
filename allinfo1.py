@@ -1,6 +1,7 @@
 import sqlite3
 import tkinter as tk
 from tkinter import messagebox
+import tkinter as ttk
 
 
 conn = sqlite3.connect('grida.db')
@@ -18,6 +19,26 @@ def visa_informacija():
                 for r in rezultati:
                     rezultati_str += f"{r[0]}: {r[1]} {r[2]}, {r[3]}\n"
                     tk.Label(logs, text=f"Rezultāti\n Vārds:{r[0]} \n Klients: {r[1]}\n Laukums: {r[2]}\n Materials:{r[3]}\n").pack()
+                    try:        
+                        mater_veids = mater_combobox.get()
+                        if  not mater_veids:
+                            messagebox.showwarning("Brīdinājums, lūdzu izvēlēties telefona numuru!")
+                            return
+
+                        global telefon,laukums
+                        conn= sqlite3.connect('grida.db')
+                        cursor=conn.cursor()
+                        cursor.execute("SELECT * FROM Klients WHERE tel_nr = ?",(mater_veids,))
+                        tel_all=cursor.fetchone()
+                        conn.close()
+                        if mater_veids:
+                                text=ttk.Label(logs,text=f"Vārds:{tel_all[1]}\nUzvārds{tel_all[2]}")
+                                text.place(x=150,y=150)
+                        else:
+                            messagebox.showwarning("Brīdinājums, lūdzu izvēlēties telefona numuru!")
+                    except Exception as e:
+                        messagebox.showerror("Kļūda", f"Neizdevās parādīt informāciju: {e}")
+
             else:
                 messagebox.showinfo("Rezultāti", f"Netika atrasts neviens klients ar id {id_info}.")
         else:
@@ -27,6 +48,10 @@ def visa_informacija():
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
     
+    tk.Label(logs,text="Materials1",bg="#6F5100").pack()#tas ir materiala veidu izvelešana
+    mater_combobox = ttk.Combobox(logs,width=20,state="readonly",values= mater_combobox)
+    mater_combobox.pack()
+
     tk.Label(logs, text=" id:",bg="#6F5100").pack()
     id_info_entry = tk.Entry(logs)
     id_info_entry.pack()
