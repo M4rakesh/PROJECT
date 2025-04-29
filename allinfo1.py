@@ -4,6 +4,7 @@ from tkinter import messagebox
 import tkinter as ttk
 
 
+
 conn = sqlite3.connect('grida.db')
 cursor = conn.cursor()
 print("123")

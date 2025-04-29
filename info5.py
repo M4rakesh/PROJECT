@@ -61,7 +61,7 @@ def savieno_informaciju():
             cursor.execute("SELECT * FROM Laukums WHERE platums = ? ",(platums,))
             tel_all=cursor.fetchone()
             cursor.execute("SELECT * FROM Laukums WHERE garums = ?",(garums,))
-            tel_all=cursor.fetchone()
+            mater_all=cursor.fetchone()
             cursor.execute("SELECT * FROM Material WHERE mater_veids = ?",(materials,))
             mater_all=cursor.fetchone()
 
@@ -70,8 +70,8 @@ def savieno_informaciju():
 
             if tel_nr:
                     print("tel",tel_all)
-                    text=ttk.Label(logs,text=f"Vārds:{tel_all[1]}\nUzvārds{tel_all[2]}\nPlatums:{mater_all[2]} Garums{mater_all[3]}")
-                    text.place(x=300,y=150)
+                    text=ttk.Label(logs,text=f"Vārds:{mater_all[1]}\nUzvārds{mater_all[2]}\nPlatums:{tel_all[1]} Garums{tel_all[2]}")
+                    text.place(x=960,y=540)
             else:
                 messagebox.showwarning("Brīdinājums, lūdzu izvēlēties telefona numuru!")
 
