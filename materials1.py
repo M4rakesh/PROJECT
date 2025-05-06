@@ -140,7 +140,7 @@ def dzēst_materialu():
 #galvenais logs kurš saists ar materilu
 def materials_logs():
     materials_logs = tk.Toplevel()
-    materials_logs.title("Klientu pārvaldība")
+    materials_logs.title("Materiali")
     materials_logs.geometry(f"300x250+{int((materials_logs.winfo_screenwidth())/2)-150}+{int((materials_logs.winfo_screenheight())/2)-125}")
     materials_logs.configure(bg="#6F5100")
 

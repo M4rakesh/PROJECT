@@ -1,7 +1,7 @@
 import sqlite3
 import tkinter as tk
-from tkinter import messagebox
 import tkinter as ttk
+from tkinter import messagebox,ttk
 
 
 conn = sqlite3.connect('grida.db')

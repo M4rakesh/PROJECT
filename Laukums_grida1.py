@@ -83,7 +83,7 @@ def dzēst_laukumu():
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet derīgu ID!")
 
     logs = tk.Toplevel()
-    logs.title("Dzēst Laukumi")
+    logs.title("Dzēst Gridas Laukumi")
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
 

@@ -1,7 +1,7 @@
 import sqlite3
 import tkinter as tk
-from tkinter import messagebox
 import tkinter as ttk
+from tkinter import messagebox,ttk
 
 
 conn = sqlite3.connect('grida.db')
@@ -68,19 +68,19 @@ def visa_informacija():
     tk.Label(logs,text="Materials1",bg="#6F5100").pack()#tas ir materiala veidu izvelešana
     mater_combobox = ttk.Combobox(logs,width=20,state="readonly",values= telefon1)
     mater_combobox.pack()
-    print|("vdgrferfehghghghgfe")
+    print("vdgrferfehghghghgfe")
 
     tk.Label(logs, text=" id:",bg="#6F5100").pack()
     id_info_entry = tk.Entry(logs)
     id_info_entry.pack()
-    print|("vdgrferfefe")
+    print("vdgrferfefe")
 
     meklēt_btn = tk.Button(logs, text="Meklēt", command=show_infoo,overrelief="ridge",bg="yellow")
     meklēt_btn.pack(pady=10)
 
 def info_logs():
     info_logs = tk.Toplevel()
-    info_logs.title("Klientu pārvaldība")
+    info_logs.title("Informacija par klientu")
     info_logs.geometry(f"300x250+{int((info_logs.winfo_screenwidth())/2)-150}+{int((info_logs.winfo_screenheight())/2)-125}")
     info_logs.configure(bg="#6F5100")
 
