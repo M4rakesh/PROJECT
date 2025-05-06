@@ -63,7 +63,7 @@ def visa_informacija():
     logs.title("Klienta informācija")
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
-    print|("vdgrferfjhtyjjtyjtyjyjtyjtyjtyjyefe")
+    print("vdgrferfjhtyjjtyjtyjyjtyjtyjtyjyefe")
 
     tk.Label(logs,text="Materials1",bg="#6F5100").pack()#tas ir materiala veidu izvelešana
     mater_combobox = ttk.Combobox(logs,width=20,state="readonly",values= telefon1)
