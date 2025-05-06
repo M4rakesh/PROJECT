@@ -4,19 +4,29 @@ from tkinter import messagebox
 import tkinter as ttk
 
 
-
 conn = sqlite3.connect('grida.db')
 cursor = conn.cursor()
 print("123")
 #logs kur izvada visu informaciju kur raksits par vārdu,laukumu,materilu
 def visa_informacija():
     print("12334")
-    tel_all=[1,2,3]
+    global telefon1,laukums1,platums1, garums1, materials1, materials2, materials3
+    conn= sqlite3.connect('grida.db')
+    cursor=conn.cursor()
+    cursor.execute("SELECT * FROM Klients")
+    telefon1 = []
+    tel_all=cursor.fetchall()
+    print("tell_all", tel_all)
+    for tel in tel_all:
+            telefon1.append(tel[3])
+
     def show_infoo():
         print("12335")
-        id_info =id_info_entry.get()
+        id_info =mater_combobox.get()
         print("1233")
         if id_info:
+            conn= sqlite3.connect('grida.db')
+            cursor=conn.cursor()
             #cursor.execute("SELECT * FROM Info INNER JOIN Klients ON Klients.id_klients= Info.id_klients INNER JOIN Laukums ON Laukums.id_lauk= Info.id_lauk INNER JOIN Material ON Info.id_mater= Material.id_mater WHERE Info.id_info LIKE ? ", (f"%{id_info}%",) )    
             cursor.execute("SELECT * FROM Klients WHERE id_klients LIKE ?",(id_info,))
             rezultati = cursor.fetchall()
@@ -53,14 +63,17 @@ def visa_informacija():
     logs.title("Klienta informācija")
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
     logs.configure(bg="#6F5100")
-    
+    print|("vdgrferfjhtyjjtyjtyjyjtyjtyjtyjyefe")
+
     tk.Label(logs,text="Materials1",bg="#6F5100").pack()#tas ir materiala veidu izvelešana
-    mater_combobox = ttk.Combobox(logs,width=20,state="readonly",values= tel_all)
+    mater_combobox = ttk.Combobox(logs,width=20,state="readonly",values= telefon1)
     mater_combobox.pack()
+    print|("vdgrferfehghghghgfe")
 
     tk.Label(logs, text=" id:",bg="#6F5100").pack()
     id_info_entry = tk.Entry(logs)
     id_info_entry.pack()
+    print|("vdgrferfefe")
 
     meklēt_btn = tk.Button(logs, text="Meklēt", command=show_infoo,overrelief="ridge",bg="yellow")
     meklēt_btn.pack(pady=10)
