@@ -78,13 +78,19 @@ def savieno_informaciju():
             conn= sqlite3.connect('grida.db')
             cursor=conn.cursor()
 
-            conn.close()
+            
 
             if mater_all:
                     text=ttk.Label(logs,text=f"Platums:{mater_all[2]} Garums{mater_all[3]}")
                     text.place(x=150,y=150)
             else:
-                messagebox.showwarning("Brīdinājums, lūdzu izvēlēties telefona numuru!")
+                messagebox.showwarning("Brīdinājums, lūdzu izvēlēties izmērus!")
+
+#^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            cursor.execute("INSERT INTO Pasutijumi (tel_nr, platums, garums, Materials) VALUES (?, ?, ?,?)", (tel_nr, platums, garums,materials) )
+            conn.commit()
+            messagebox.showinfo("Veiksmīgi", "klientu pievienots!")
+            conn.close()
 
         except Exception as e:
             messagebox.showerror("Kļūda", f"Neizdevās parādīt informāciju: {e}")

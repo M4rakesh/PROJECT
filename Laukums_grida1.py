@@ -19,7 +19,7 @@ def pievienot_laukumu():
                 )
                 
                 conn.commit()
-                messagebox.showinfo("Veiksmīgi", "Laukums pievienots!")
+                messagebox.showinfo("Veiksmīgi", f"Laukums {laukums2} pievienots!")
                 logs.destroy()
             else:
                 messagebox.showerror("Kļūda", "Lūdzu, aizpildiet visus laukus korekti!")
