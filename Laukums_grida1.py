@@ -10,13 +10,14 @@ def pievienot_laukumu():
         try:
             platums = platums_entry.get()
             garums = garums_entry.get()             
-            
+            laukums2 = (float(platums)*float(garums))
         
             if platums and garums:
                 cursor.execute(
                     "INSERT INTO Laukums (platums,garums,laukums) VALUES (?, ?, ?)",
-                    (float(platums),float(garums), (float(platums)*float(garums)))
+                    (float(platums),float(garums), laukums2)
                 )
+                
                 conn.commit()
                 messagebox.showinfo("Veiksmīgi", "Laukums pievienots!")
                 logs.destroy()
@@ -40,6 +41,9 @@ def pievienot_laukumu():
     saglabat_btn = tk.Button(logs, text="Saglabāt", command=saglabat_laukumu,bg="yellow")
     saglabat_btn.pack(pady=10)
 
+    tk.Label(logs, text="Laukums:",bg="#6F5100").pack()
+    laukums = tk.Label(logs)
+    laukums.pack()
 
 #logs kur var gridas laukumu atrast pec gridas platuma 
 def meklēt_laukumu():
