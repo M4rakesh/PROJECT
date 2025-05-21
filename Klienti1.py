@@ -116,7 +116,6 @@ def dzēst_klientu():
             logs.destroy()
         else:
             messagebox.showerror("Kļūda", "Lūdzu, ievadiet derīgu ID!")
-
     logs = tk.Toplevel()
     logs.title("Dzēst Klientu")
     logs.geometry(f"300x200+{int((logs.winfo_screenwidth())/2)-150}+{int((logs.winfo_screenheight())/2)-100}")
